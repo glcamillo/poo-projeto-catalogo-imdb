@@ -20,21 +20,13 @@ Cada um dos filmes catalogados, deverá possuir alguns atributos, tais como: nom
 Assim como também, apresentar um diretor, uma lista de atores que trabalharam no filme. 
 E adicionar atributos para as pessoas. 
 
-<br/>
-<br/>
 Implementar uma aplicação em que o usuário possa:
 
--> cadastrar filmes;
+- cadastrar filmes
+- cadastrar atores
+- associar um filme com seus atores e diretores
+- permitir pesquisar filmes cadastrados pelo nome, desconsiderando letras maiúsculas e minúsculas.
 
--> cadastrar atores;
-
--> associar um filme com seus atores e diretores;
-
--> permitir pesquisar filmes cadastrados pelo nome, desconsiderando letras maiúsculas e minúsculas.
-
-
-<br/>
-<br/>
 **OBSERVAÇÕES**:
 
  - É necessário que se utilize os conceitos de programação orientada a objetos vistos nas aulas: como encapsulamento, herança, polimorfismos e classes abstratas.
@@ -80,5 +72,4 @@ classDiagram
       +obtemDataLancamento()
       +obtemAtores()
     }
-
 ```
