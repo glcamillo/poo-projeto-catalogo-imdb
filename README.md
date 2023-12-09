@@ -44,3 +44,33 @@ Implementar uma aplicação em que o usuário possa:
 
 
 <img src="./FOTOFILME1.png" alt="Película de filme">
+
+## Diagrama de classes básico do projeto
+```mermaid
+classDiagram
+    Pessoa <|-- Diretor
+    Pessoa <|-- Ator
+    Pessoa : +String nomeCompleto
+    Pessoa : -DateTime dataNascimento
+    Pessoa : -String sexo
+    Pessoa : -String nacionalidade
+    Pessoa: +obtemDataNascimento()
+    Pessoa: +obtemSexto()
+    Pessoa: +obtemNacionalidade()
+    class Diretor{
+      +Filme[] filmes
+      +obtemFilmes()
+    }
+    class Ator{
+      -int numeroParticipacaoFilmes
+      -Filme[] participacaoFilmes
+      +obtemParticipacaoFilmes()
+    }
+    class Filme{
+      -String nomeFilme
+      -bool foiLancado
+      -DateTime dataLancamento
+      +obtemDataLancamento()
+    }
+
+```
