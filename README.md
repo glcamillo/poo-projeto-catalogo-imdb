@@ -46,6 +46,8 @@ Implementar uma aplicação em que o usuário possa:
 <img src="./FOTOFILME1.png" alt="Película de filme">
 
 ## Diagrama de classes básico do projeto
+Uma prévia das classes.
+
 ```mermaid
 classDiagram
     Pessoa <|-- Diretor
@@ -60,17 +62,23 @@ classDiagram
     class Diretor{
       +Filme[] filmes
       +obtemFilmes()
+      Diretor(String nomeCompleto, DateTime nascimento, String sexo, String nacionalidade)
     }
     class Ator{
-      -int numeroParticipacaoFilmes
+      -int (static) numeroParticipacaoFilmes
       -Filme[] participacaoFilmes
+      Ator(String nomeCompleto, DateTime nascimento, String sexo, Filme filme)
       +obtemParticipacaoFilmes()
     }
     class Filme{
-      -String nomeFilme
-      -bool foiLancado
+      +String nomeFilme
+      -String genero
       -DateTime dataLancamento
+      -Ator[5] atores
+      Filme(String nomeFilme, String genero, DateTime datalanc, Ator[] atores)
+      +obtemGenero()
       +obtemDataLancamento()
+      +obtemAtores()
     }
 
 ```
