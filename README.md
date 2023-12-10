@@ -61,7 +61,7 @@ Ou, se ***ainda não tiver criado sua branch*** então deve ser executado o segu
 
 d) Depois de ter codificado/alterado os arquivos, deve-se adicionar os mesmos na **Staging Area (Index)** que faz com que o git fique cientificado dessas alterações.
 
-`git add meu-arquivo.java` ou `git add` Aqui adiciona todas as alterações do diretório corrente.
+`git add meu-arquivo.java` ou `git add .` Aqui adiciona todas as alterações do diretório corrente.
 
 e) Da área de **Index** para o seu repositório local (**repository**):
 
