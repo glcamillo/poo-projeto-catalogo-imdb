@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 public class Filme
         private String nomeFilme;
+
         private String descricaoFilme;
         String genero;
         Diretor diretor = new Diretor();
