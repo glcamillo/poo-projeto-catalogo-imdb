@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class OperacoesFilme {
+
     ArrayList<Filme> filmesDoBancoDeDados;
 
     public OperacoesFilme() {
