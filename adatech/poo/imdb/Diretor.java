@@ -3,7 +3,7 @@ package adatech.poo.imdb;
 public class Diretor {
     private String nomeDiretor;
 
-    Diretor(String nomeDiretor){
+    public Diretor(String nomeDiretor){
         this.nomeDiretor = nomeDiretor;
     }
     public String getNomeDiretor(){
