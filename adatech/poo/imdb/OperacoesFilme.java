@@ -15,8 +15,8 @@ public class OperacoesFilme {
 
     public void incluirFilme(Filme filme) {
         boolean repetido = false;
-        for (filme : filmesDoBancoDeDados) {
-            if ( filme.nomeFilme().equals(this.nomeFilme)) {
+        for (Filme item : this.filmesDoBancoDeDados) {
+            if ( this.filmesDoBancoDeDados.contains(filme)) {
                 repetido = true;
                 System.out.println("Filme já cadastrado.");
                 break;
@@ -44,12 +44,12 @@ public class OperacoesFilme {
         public void alterarFilme (Filme filme) {
             boolean alterado = false;
             for (Filme item : this.filmesDoBancoDeDados) {
-                if ( item.getNomeFilme().equals(filme)) {
-                    filmesDoBancoDeDados.replaceAll (filme);
+                //if ( item.getNomeFilme().equals(filme)) {
+                    //filmesDoBancoDeDados.replaceAll(item, filme);
                     System.out.println("Filme alterado com sucesso.");
                     alterado = true;
                     break;
-                }
+                //}
             }
             if (!alterado) {
                 System.err.println("Filme não cadastrado.");

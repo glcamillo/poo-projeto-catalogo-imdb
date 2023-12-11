@@ -1,13 +1,13 @@
-pa
 import java.time.LocalDate;
 import java.util.ArrayList;
+import adatech.poo.imdb.Diretor;
 
-public class Filme
+public class Filme{
         private String nomeFilme;
 
         private String descricaoFilme;
         String genero;
-        Diretor diretor = new Diretor();
+        Diretor diretor = new Diretor("");
 
         LocalDate dataLancamento;
 
