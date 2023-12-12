@@ -73,6 +73,24 @@ f) O diretório local está sincronizado quanto às alterações. Agora é a hor
 
 `git push -u origin minha-branch-de-trabalho`  (`-u`é  sinônimo para `--set-upstream` e **origin** é o nome do remoto)
 
+**Importante** A branch `minha-branch-de-trabalho` no remoto `origin` (GitHub) está atualizada. Entra o trabalho de **merge** no qual as alterações serão incorporadas na linha principal (`main`).
+
+g) **Mais importante ainda:** nesta fase do trabalho em que estamos trabalhando nos mesmos códigos, é importante trazer as alterações mais recentes da branch `main` para a nossa brainch local de trabalho `minha-branch-de-trabalho` (isso poderia também ser feito no GitHub). A sequência de comandos é a seguinte:
+
+`git checkout main` Indo pro branch da linha principal.
+
+`git pull` Sincronizando (trazendo as alterações) mais recentes do remoto `origin`.
+
+`git chechout minha-branch-de-trabalho` Indo pra branch local.
+
+`git pull` Sincronizando a branch local.
+
+E, agora, o comando que vai atualizar a branch `minha-branch-de-trabalho` com as alterações da linha `main`.
+
+`git merge main`
+
+E, depois, voltar para a branch de trabalho.
+
 ## Diagrama de classes básico do projeto
 <img src="./imagens/fotofilme.png" alt="Película de filme">
 
