@@ -14,6 +14,7 @@ public class OperacoesFilme {
 
 //        ArrayList<Filme> filmesDoBancoDeDados = getFilmesDoBancoDeDados();
         boolean repetido = false;
+
 //        for ( Filme item : filmesDoBancoDeDados) {
 //            if ( item.getNomeFilme().equals(filme.getNomeFilme())) {
 //                repetido = true;

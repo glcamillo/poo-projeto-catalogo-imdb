@@ -1,4 +1,4 @@
-package adatech.poo.imdb;
+import adatech.poo.imdb.Diretor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,8 +25,10 @@ public class IMDB {
         
         // Testa classe Diretor
         testDiretor();
-
+        // Testa classe Filme
         testFilme();
+        //Testa classe Ator
+        testAtor();
     }
     
     // Método para tratar entrada de dados
@@ -72,7 +74,13 @@ public class IMDB {
        fase do projeto.
     */
     public static void testAtor() {
-    
+        Ator[] elenco;
+        elenco = new Ator[5];
+        String[] filmes = {"volvo", "BMW", "Ford", "Mazda"};
+        elenco[0] = new Ator("Gustavo","10/11/1999","Nova Iguaçu",filmes);
+        elenco[0].display();
+        elenco[1] = new Ator("Deyse","27/02/1968","Rio de Janeiro",filmes);
+        elenco[1].display();
     }
 
     /* Método para testar a funcionalidade da classe Diretor.
