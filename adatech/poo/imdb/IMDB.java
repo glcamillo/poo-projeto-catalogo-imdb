@@ -1,5 +1,9 @@
-import adatech.poo.imdb.Diretor;
+package adatech.poo.imdb;
 
+// Não é necessário, pois todas as classes estarão no mesmo pacote.
+// import adatech.poo.imdb.Diretor;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /*
@@ -24,7 +28,9 @@ public class IMDB {
         
         // Testa classe Diretor
         testDiretor();
-        //Tetsa classe Ator
+        // Testa classe Filme
+        testFilme();
+        //Testa classe Ator
         testAtor();
     }
     
@@ -38,7 +44,24 @@ public class IMDB {
        fase do projeto.
     */
     public static void testFilme() {
-    
+        Filme filme = new Filme("As pontes de Madison","O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
+            " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
+            "Drama romântico",LocalDate.of(1995,05,16),15000000.00,
+            "Clint Eastwood", new String[]{"Clint Eastwood", "Merryl Streep"});
+//        filme = ("As pontes de Madison";"O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
+//                " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
+//                "Drama romântico", "Clint Eastwood", "1995", String.valueOf(15000000.00),
+//                "Clint Eastwood", "Merryl Streep");
+//
+        Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
+          "de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.","Aventura, Ficção Científica",
+          LocalDate.of(2014,07,15),1000000.00,"Christopher Nolan",new String []
+                {"Matthew McConaughey","Anne Hathaway", "Jessica Chastain"}) ;
+
+        OperacoesFilme.incluirFilme (filme);
+        OperacoesFilme.incluirFilme (filme1);
+        System.out.println("Filme incluido com sucesso.");
+
     }
 
     /* Método para testar a funcionalidade da classe Pessoa.
