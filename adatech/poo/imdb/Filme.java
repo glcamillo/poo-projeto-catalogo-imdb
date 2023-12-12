@@ -1,7 +1,10 @@
 package adatech.poo.imdb;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import adatech.poo.imdb.Diretor;
+
+// Não é necessário, pois todas as classes estarão no mesmo pacote.
+// import adatech.poo.imdb.Diretor;
 
 public class Filme {
         private String nomeFilme;

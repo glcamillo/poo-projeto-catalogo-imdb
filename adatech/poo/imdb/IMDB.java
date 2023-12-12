@@ -1,4 +1,7 @@
-import adatech.poo.imdb.Diretor;
+package adatech.poo.imdb;
+
+// Não é necessário, pois todas as classes estarão no mesmo pacote.
+// import adatech.poo.imdb.Diretor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
