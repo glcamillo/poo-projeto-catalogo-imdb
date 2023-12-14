@@ -47,18 +47,23 @@ public class IMDB {
         Filme filme = new Filme("As pontes de Madison","O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
             " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
             "Drama romântico",LocalDate.of(1995,05,16),15000000.00,
-            "Clint Eastwood", new String[]{"Clint Eastwood", "Merryl Streep"});
+            "Clint Eastwood", new ArrayList<Ator>("Clint Eastwood", "Merryl Streep"));
 
         Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
           "de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.","Aventura, Ficção Científica",
-          LocalDate.of(2014,07,15),1000000.00,"Christopher Nolan",new String []
-                {"Matthew McConaughey","Anne Hathaway", "Jessica Chastain"}) ;
+          LocalDate.of(2014,07,15),1000000.00,"Christopher Nolan",new ArrayList<Ator>
+          ("Matthew McConaughey","Anne Hathaway", "Jessica Chastain"));
+
+        Filme filme2 = new Filme("O Poderoso Chefão","O patriarca idoso de uma dinastia do crime " +
+                "organizado transfere o controle de seu império clandestino para seu filho relutante.",
+                "Policial, Drama", LocalDate.of(1972,07,15),10000000.00,"Francis Coppola",
+                new ArrayList<Ator> ("Marlon Brando>","Al Pacino", "James Caan")) ;
 
         OperacoesFilme.incluirFilme (filme);
         OperacoesFilme.incluirFilme (filme1);
-        System.out.println("Filme incluido com sucesso.");
+        OperacoesFilme.incluirFilme (filme2);
 
-        Filme filmeApesquisar = OperacoesFilme.pesquisarFilme("As pontes de Madison");
+        Filme filmeApesquisar = OperacoesFilme.pesquisarFilme("as pontes de madison");
         filmeApesquisar = OperacoesFilme.pesquisarFilme("Seven");
 
     }
