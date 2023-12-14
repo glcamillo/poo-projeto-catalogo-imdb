@@ -23,9 +23,9 @@ public class OperacoesFilme {
         Filme filmePesquisado = new Filme();
         int index = 0;
         for (Filme item : filmesDoBancoDeDados) {
-            if (item.getNomeFilme().equals(nomeFilme)) {
+            if (item.getNomeFilme().equals(nomeFilme.toLowerCase())) {
                 index = filmesDoBancoDeDados.indexOf (item);
-                System.out.println("Filme encontrado com sucesso: ");
+                System.out.println("Filme encontrado: ");
                 System.out.println("Nome do filme: " + item.getNomeFilme());
                 System.out.println("Descrição: " + item.descricaoFilme);
                 System.out.println("Diretor: " + item.diretor);
