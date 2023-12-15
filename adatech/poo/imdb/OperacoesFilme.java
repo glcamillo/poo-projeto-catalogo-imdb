@@ -13,48 +13,31 @@ public class OperacoesFilme {
     }
     public static void incluirFilme(Filme filme) {
 
-//        ArrayList<Filme> filmesDoBancoDeDados = getFilmesDoBancoDeDados();
-        boolean repetido = false;
-
-//        for ( Filme item : filmesDoBancoDeDados) {
-//            if ( item.getNomeFilme().equals(filme.getNomeFilme())) {
-//                repetido = true;
-//                System.out.println("Filme já cadastrado.");
-//                break;
-//            }
-//        }
-        if (!repetido) filmesDoBancoDeDados.add(filme);
+        filmesDoBancoDeDados.add(filme);
         System.out.println("Filme " + filme.getNomeFilme() +  " foi salvo com sucesso.");
 
     }
-//    public void excluirFilme (String filme) {
-//        boolean excluido = false;
-//        for (Filme item : this.filmesDoBancoDeDados) {
-//            if ( item.getNomeFilme().equals(filme)) {
-//                this.filmesDoBancoDeDados.remove (item);
-//                System.out.println("Filme excluido com sucesso.");
-//                excluido = true;
-//                break;
-//                }
-//            }
-//            if (!excluido) {
-//                System.err.println("Filme não cadastrado.");
-//            }
-//        }
-//
-//        public void alterarFilme (Filme filme) {
-//            boolean alterado = false;
-//            for (Filme item : this.filmesDoBancoDeDados) {
-//                if ( item.getNomeFilme().equals(filme)) {
-//                    filmesDoBancoDeDados.replaceAll (filme);
-//                    System.out.println("Filme alterado com sucesso.");
-//                    alterado = true;
-//                    break;
-//                }
-//            }
-//            if (!alterado) {
-//                System.err.println("Filme não cadastrado.");
-//            }
-//        }
+
+    public static Filme pesquisarFilme(String nomeFilme) {
+        boolean achou = false;
+        Filme filmePesquisado = new Filme();
+        int index = 0;
+        for (Filme item : filmesDoBancoDeDados) {
+            if (item.getNomeFilme().equals(nomeFilme.toLowerCase())) {
+                index = filmesDoBancoDeDados.indexOf (item);
+                System.out.println("Filme encontrado: ");
+                System.out.println("Nome do filme: " + item.getNomeFilme());
+                System.out.println("Descrição: " + item.descricaoFilme);
+                System.out.println("Diretor: " + item.diretor);
+                System.out.println("Atores principais: " + item.atores[0]+", "+item.atores[1]);
+                achou = true;
+                filmePesquisado = filmesDoBancoDeDados.get(index);
+            }
+        }
+        if (!achou) {
+            System.err.println("Filme não cadastrado: " + nomeFilme);
+        }
+        return filmePesquisado;
+    }
 
 }
