@@ -1,10 +1,12 @@
 package adatech.poo.imdb;
 
+
 // Não é necessário, pois todas as classes estarão no mesmo pacote.
 // import adatech.poo.imdb.Diretor;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
     Classe driver para o projeto IMDB.
@@ -77,13 +79,25 @@ public class IMDB {
        fase do projeto.
     */
     public static void testAtor() {
-        Ator[] elenco;
-        elenco = new Ator[5];
-        String[] filmes = {"volvo", "BMW", "Ford", "Mazda"};
-        elenco[0] = new Ator("Gustavo","10/11/1999","Nova Iguaçu",filmes);
-        elenco[0].display();
-        elenco[1] = new Ator("Deyse","27/02/1968","Rio de Janeiro",filmes);
-        elenco[1].display();
+        // Lista de filmes para cada ator
+        ArrayList<String> filmes = new ArrayList<>(Arrays.asList("volvo", "BMW", "Ford", "Mazda"));
+
+        // Instância da classe Elenco
+        Elenco atores = new Elenco();
+
+        // Adicionando atores ao elenco
+        atores.setElenco("Deyse", "27/02/1968", "Rio de Janeiro", filmes);
+        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu",filmes);
+
+        // Obtendo a lista completa de atores e seus detalhes
+        ArrayList<Ator> pessoas = atores.getElenco();
+        for (Ator ator : pessoas) {
+            ator.display();
+        }
+
+        // Obtendo os nomes dos atores no elenco
+        ArrayList<String> nomes = atores.getAtores();
+        System.out.println(nomes);
     }
 
     /* Método para testar a funcionalidade da classe Diretor.
