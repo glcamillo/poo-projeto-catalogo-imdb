@@ -120,20 +120,13 @@ classDiagram
       +obtemParticipacaoFilmes()
     }
     class Filme{
-      -String nomeFilme
-      -String descricaoFilme
+      +String nomeFilme
       -String genero
       -DateTime dataLancamento
-      -double orcamento
-      -Diretor diretor
       -Ator[5] atores
-      Filme(String nomeFilme, String descricaoFilme,String genero, DateTime datalanc, double orcamento, Diretor diretor,Ator[] atores)
-      +getNomeFilme
-      +getGenero()
-      +getDataLancamento()
-      +getOrcamento
-      +getAtores()
-      +incluirFilme
-      +pesquisarFilmes
+      Filme(String nomeFilme, String genero, DateTime datalanc, Ator[] atores)
+      +obtemGenero()
+      +obtemDataLancamento()
+      +obtemAtores()
     }
 ```
