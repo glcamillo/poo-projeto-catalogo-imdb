@@ -5,6 +5,7 @@ package adatech.poo.imdb;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -117,6 +118,7 @@ public class IMDB {
         Ator ator = null;
         return ator;
     }
+
     static Diretor incluirDiretor(String nomeDiretor) {
         Diretor diretor = null;
         try {
@@ -198,13 +200,25 @@ public class IMDB {
        fase do projeto.
     */
     public static void testAtor() {
-        Ator[] elenco;
-        elenco = new Ator[5];
-        String[] filmes = {"volvo", "BMW", "Ford", "Mazda"};
-        elenco[0] = new Ator("Gustavo","10/11/1999","Nova Iguaçu",filmes);
-        elenco[0].display();
-        elenco[1] = new Ator("Deyse","27/02/1968","Rio de Janeiro",filmes);
-        elenco[1].display();
+        // Lista de filmes para cada ator
+        ArrayList<String> filmes = new ArrayList<>(Arrays.asList("volvo", "BMW", "Ford", "Mazda"));
+
+        // Instância da classe Elenco
+        Elenco atores = new Elenco();
+
+        // Adicionando atores ao elenco
+        atores.setElenco("Deyse", "27/02/1968", "Rio de Janeiro", filmes);
+        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu",filmes);
+
+        // Obtendo a lista completa de atores e seus detalhes
+        ArrayList<Ator> pessoas = atores.getElenco();
+        for (Ator ator : pessoas) {
+            ator.display();
+        }
+
+        // Obtendo os nomes dos atores no elenco
+        ArrayList<String> nomes = atores.getAtores();
+        System.out.println(nomes);
     }
 
     /* Método para testar a funcionalidade da classe Diretor.
@@ -215,8 +229,11 @@ public class IMDB {
         listaDiretores.add(new Diretor("Antoine Fuqua"));
 
         System.out.printf("\n\n === LISTA DIRETORES === \n");
-        for (Diretor item : listaDiretores)
+        for (Diretor item : listaDiretores) {
             System.out.println("Nome diretor: " + item.getNomeDiretor());
+            System.out.println(item.toString());
+
+        }
     }
 
 }
