@@ -114,12 +114,11 @@ classDiagram
     Pessoa: +obtemDataNascimento()
     Pessoa: +obtemSexto()
     Pessoa: +obtemNacionalidade()
-    private String nomeDiretor;
     class Diretor{
-      +nomeDiretor : String    
-      +toString : String
-      +getNomeDiretor() : String
-      +Diretor(nomeDiretor : String) : void
+      +String nomeDiretor
+      +String toString()
+      +String getNomeDiretor()
+      +Diretor(String nomeDiretor)
     }
     class Ator{
       -int (static) numeroParticipacaoFilmes
@@ -128,32 +127,34 @@ classDiagram
       +obtemParticipacaoFilmes()
     }
     class Filme{
-      +nomeFilme : String
-      -genero : String
-      -dataLancamento : DateTime
-      -elenco : ArrayList<Ator>
-      -diretor : Diretor
+      +String nomeFilme
+      -String genero
+      -DateTime dataLancamento
+      -ArrayList<Ator> elenco
+      -Diretor diretor
       Filme(String nomeFilme, String genero, DateTime datalanc,
+            Diretor diretor,
             ArrayList<Ator>)
       +obtemGenero()
       +obtemDataLancamento()
       +obtemAtores()
     }
     class IMDB{
-      +listaAtores : ArrayList<Ator>
-      +listaDiretores : ArrayList<Diretor>
-      +listaFilmes : ArrayList<Filme>
-      +tiposGeneros : Enum
-      +main(args : String[]) : static void
-      +processarEntrada(void) : void
-      +processarEntradaAtor(void) : void
-      -incluirAtor(nomeAtor : String) : Ator
-      +processarEntradaDiretor() : void
-      -incluirDiretor(nomeDiretor: String) : Diretor
-      +processarEntradaFilme() : void
-      -incluirFilme(nomeFilme : String) : Filme
-      +pesquisarAtor() : void
-      +pesquisarDiretor() : void
-      +pesquisarFilme() : void      
+      +ArrayList<Ator> listaAtores
+      +ArrayList<Diretor> listaDiretores
+      +ArrayList<Filme> listaFilmes
+      +Enum tiposGeneros
+      +main(String[] args)
+      +processarEntrada()
+      +processarEntradaAtor()
+      -Ator incluirAtor(String nomeAtor)
+      +processarEntradaDiretor()
+      -Diretor incluirDiretor(String nomeDiretor)
+      +processarEntradaFilme()
+      -Filme incluirFilme(String nomeFilme)
+      +Ator pesquisarAtor(String nomeAtor)
+      +Diretor pesquisarDiretor(String nomeDiretor)
+      +Filme pesquisarFilme(String nomeFilme)
     }
+```
 ```
