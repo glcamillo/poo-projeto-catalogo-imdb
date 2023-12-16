@@ -99,6 +99,10 @@ Cada classe (Ator, Diretor e Filme) será representada por um ArrayList de objet
 
 O armazenamento de `nome de ator`, `nome de diretor` e `nome de filme` será conforme entrada do usuário, ou seja, o case da entrada será armazenado nas estruturas de dados. A **pesquisa** será sempre por ***letras minúsculas***.
 
+### Considerações sobre alguns métodos
+
+As classes `Ator`, `Diretor` e `Filme` sobrescreverão o método `toString` para apresentar dados básicos dos objetos Ator, Diretor e Filme.
+
 ```mermaid
 classDiagram
     Pessoa <|-- Diretor
@@ -110,10 +114,12 @@ classDiagram
     Pessoa: +obtemDataNascimento()
     Pessoa: +obtemSexto()
     Pessoa: +obtemNacionalidade()
+    private String nomeDiretor;
     class Diretor{
-      +Filme[] filmes
-      +obtemFilmes()
-      Diretor(String nomeCompleto, DateTime nascimento, String sexo, String nacionalidade)
+      +nomeDiretor : String    
+      +toString : String
+      +getNomeDiretor() : String
+      +Diretor(nomeDiretor : String) : void
     }
     class Ator{
       -int (static) numeroParticipacaoFilmes
