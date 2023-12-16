@@ -94,8 +94,10 @@ E, depois, voltar para a branch de trabalho.
 ## Diagrama de classes básico do projeto
 <img src="./imagens/fotofilme.png" alt="Película de filme">
 
+### Estrutura de Dados
+Cada classe (Ator, Diretor e Filme) será representada por um ArrayList de objetos criados dentro da classe driver IMDB. Então, tamanho será dinâmico.
 
-Uma prévia das classes.
+O armazenamento de `nome de ator`, `nome de diretor` e `nome de filme` será conforme entrada do usuário, ou seja, o case da entrada será armazenado nas estruturas de dados. A **pesquisa** será sempre por ***letras minúsculas***.
 
 ```mermaid
 classDiagram
@@ -120,13 +122,32 @@ classDiagram
       +obtemParticipacaoFilmes()
     }
     class Filme{
-      +String nomeFilme
-      -String genero
-      -DateTime dataLancamento
-      -Ator[5] atores
-      Filme(String nomeFilme, String genero, DateTime datalanc, Ator[] atores)
+      +nomeFilme : String
+      -genero : String
+      -dataLancamento : DateTime
+      -elenco : ArrayList<Ator>
+      -diretor : Diretor
+      Filme(String nomeFilme, String genero, DateTime datalanc,
+            ArrayList<Ator>)
       +obtemGenero()
       +obtemDataLancamento()
       +obtemAtores()
+    }
+    class IMDB{
+      +listaAtores : ArrayList<Ator>
+      +listaDiretores : ArrayList<Diretor>
+      +listaFilmes : ArrayList<Filme>
+      +tiposGeneros : Enum
+      +main(args : String[]) : static void
+      +processarEntrada(void) : void
+      +processarEntradaAtor(void) : void
+      -incluirAtor(nomeAtor : String) : Ator
+      +processarEntradaDiretor() : void
+      -incluirDiretor(nomeDiretor: String) : Diretor
+      +processarEntradaFilme() : void
+      -incluirFilme(nomeFilme : String) : Filme
+      +pesquisarAtor() : void
+      +pesquisarDiretor() : void
+      +pesquisarFilme() : void      
     }
 ```
