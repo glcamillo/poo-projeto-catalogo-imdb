@@ -9,4 +9,11 @@ public class Diretor {
     public String getNomeDiretor(){
         return this.nomeDiretor;
     }
+
+    @Override
+    public String toString() {
+        return "Diretor{" +
+                "nomeDiretor='" + nomeDiretor + '\'' +
+                '}';
+    }
 }
