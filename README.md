@@ -94,8 +94,14 @@ E, depois, voltar para a branch de trabalho.
 ## Diagrama de classes básico do projeto
 <img src="./imagens/fotofilme.png" alt="Película de filme">
 
+### Estrutura de Dados
+Cada classe (Ator, Diretor e Filme) será representada por um ArrayList de objetos criados dentro da classe driver IMDB. Então, tamanho será dinâmico.
 
-Uma prévia das classes.
+O armazenamento de `nome de ator`, `nome de diretor` e `nome de filme` será conforme entrada do usuário, ou seja, o case da entrada será armazenado nas estruturas de dados. A **pesquisa** será sempre por ***letras minúsculas***.
+
+### Considerações sobre alguns métodos
+
+As classes `Ator`, `Diretor` e `Filme` sobrescreverão o método `toString` para apresentar dados básicos dos objetos Ator, Diretor e Filme.
 
 ```mermaid
 classDiagram
@@ -109,9 +115,10 @@ classDiagram
     Pessoa: +obtemSexto()
     Pessoa: +obtemNacionalidade()
     class Diretor{
-      +Filme[] filmes
-      +obtemFilmes()
-      Diretor(String nomeCompleto, DateTime nascimento, String sexo, String nacionalidade)
+      +String nomeDiretor
+      +String toString()
+      +String getNomeDiretor()
+      +Diretor(String nomeDiretor)
     }
     class Ator{
       -int (static) numeroParticipacaoFilmes
@@ -123,10 +130,31 @@ classDiagram
       +String nomeFilme
       -String genero
       -DateTime dataLancamento
-      -Ator[5] atores
-      Filme(String nomeFilme, String genero, DateTime datalanc, Ator[] atores)
+      -ArrayList<Ator> elenco
+      -Diretor diretor
+      Filme(String nomeFilme, String genero, DateTime datalanc,
+            Diretor diretor,
+            ArrayList<Ator>)
       +obtemGenero()
       +obtemDataLancamento()
       +obtemAtores()
     }
+    class IMDB{
+      +ArrayList<Ator> listaAtores
+      +ArrayList<Diretor> listaDiretores
+      +ArrayList<Filme> listaFilmes
+      +Enum tiposGeneros
+      +main(String[] args)
+      +processarEntrada()
+      +processarEntradaAtor()
+      -Ator incluirAtor(String nomeAtor)
+      +processarEntradaDiretor()
+      -Diretor incluirDiretor(String nomeDiretor)
+      +processarEntradaFilme()
+      -Filme incluirFilme(String nomeFilme)
+      +Ator pesquisarAtor(String nomeAtor)
+      +Diretor pesquisarDiretor(String nomeDiretor)
+      +Filme pesquisarFilme(String nomeFilme)
+    }
+```
 ```
