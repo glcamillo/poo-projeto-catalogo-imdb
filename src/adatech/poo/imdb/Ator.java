@@ -1,3 +1,5 @@
+package adatech.poo.imdb;
+
 import java.util.Arrays;
 //Ator.class
 public class Ator {
