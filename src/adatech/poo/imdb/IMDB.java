@@ -32,12 +32,12 @@ public class IMDB {
       +main(args : String[]) : static void
 
      */
-    private ArrayList<Ator> listaAtores = new ArrayList<Ator>();
+    private static ArrayList<Ator> listaAtores = new ArrayList<Ator>();
     private static ArrayList<Diretor> listaDiretores = new ArrayList<>();
-    private ArrayList<Filme> listaFilmes = new ArrayList<>();
+    private static ArrayList<Filme> listaFilmes = new ArrayList<>();
 
     // Exemplos
-    private enum tiposGeneros {HUMOR, COMEDIA_ROMANTICA, GUERRA, DOCUMENTARIO };
+    static final private String[] tiposGeneros = new String[]{"ACAO", "DRAMA", "SUSPENSE", "HUMOR", "COMEDIA_ROMANTICA", "GUERRA", "DOCUMENTARIO"};
 
 
     public static void main(String[] args) {
@@ -49,32 +49,83 @@ public class IMDB {
         // Testa classe Filme
         testFilme();
         //Testa classe Ator
-        testAtor();
+
     }
 
     // ===========  Métodos Públicos para PROCESSAR ENTRADAS  ===========
-    /*
-      +processarEntrada(void) : void
-      +processarEntradaAtor(void) : void
-      +processarEntradaDiretor() : void
-      +processarEntradaFilme() : void
+    /*      +processarEntrada(void) : void
+            +processarEntradaAtor(void) : void
+            +processarEntradaDiretor() : void
+            +processarEntradaFilme() : void
      */
+
     // Método para tratar entrada de dados
     static void processaEntrada() {
         Scanner leitor = new Scanner(System.in);
-        System.out.println(" === Menu IMDB ====");
-        System.out.println(" 1. Incluir Ator");
-        System.out.println(" 2. Incluir Diretor");
-        System.out.println(" 3. Incluir Filme");
-        System.out.print(" Qual opção: ");
-        String linhaOpcao = leitor.nextLine();
-        if (linhaOpcao.equals("2"))
-            processarEntradaDiretor();
+        boolean continuar = true;
+        do {
+            System.out.println(" === Menu IMDB ====");
+            System.out.println(" 1. Incluir Ator");
+            System.out.println(" 2. Incluir Diretor");
+            System.out.println(" 3. Incluir Filme");
+            System.out.println(" 4. Imprime Lista Atores");
+            System.out.println(" 5. Imprime Lista Diretores");
+            System.out.println(" 6. Imprime Lista Filmes");
+            System.out.println(" 7. Imprime todas as listas");
+            System.out.println(" 8 9 10. PESQUISAS");
+            System.out.println(" 11. Testa classe Ator e imprime lista");
+            System.out.println(" 12. Testa classe Diretor e imprime lista");
+            System.out.println(" 13. Testa classe FIlme e imprime lista");
+            System.out.println(" s. Sair");
+            System.out.print(" Qual opção: ");
+            String linhaOpcao = leitor.nextLine();
+            switch (linhaOpcao.toLowerCase()) {
+                case "1":
+                    processaEntradaAtor();
+                    break;
+                case "2":
+                    processarEntradaDiretor();
+                    break;
+                case "3":
+                    processaEntradaFilme();
+                    break;
+                case "4":
+                    imprimeListaAtores();
+                    break;
+                case "5":
+                    imprimeListaDiretores();
+                    break;
+                case "6":
+                    imprimeListaFilmes();
+                    break;
+                case "7":
+                    imprimeListaAtores();
+                    imprimeListaDiretores();
+                    imprimeListaFilmes();
+                    break;
+                case "11":
+                    testAtor();
+                    break;
+                case "12":
+                    testDiretor();
+                    break;
+                case "13":
+                    testFilme();
+                    break;
 
+                case "s":
+                    System.exit(0);
+                    ;
+                default:
+                    System.out.println("Opção inválida");
+                    break;
+            }
+        } while(continuar);
     }
 
 
     static void processarEntradaDiretor() {
+        Diretor diretor = null;
         Scanner leitor = new Scanner(System.in);
         System.out.println(" === Entrada de DIRETORES (digitar SAIR para terminar) === ");
         boolean repete = true;
@@ -84,7 +135,7 @@ public class IMDB {
             if (linhaNomeDiretor.equalsIgnoreCase("sair"))
                 repete = false;
             else {
-                Diretor diretor = pesquisarDiretor(linhaNomeDiretor);
+                diretor = pesquisarDiretor(linhaNomeDiretor);
                 if (diretor == null) {
                     System.out.printf("\nDiretor de nome %s não existe. Será incluído.\n", linhaNomeDiretor);
                     diretor = incluirDiretor(linhaNomeDiretor);
@@ -101,18 +152,73 @@ public class IMDB {
     }
 
     static void processaEntradaFilme() {
+        Filme filme = null;
+        Diretor diretor = null;
 
+        Scanner leitor = new Scanner(System.in);
+
+        System.out.println(" === Entrada de FILMES (digitar SAIR para terminar) === ");
+        boolean repete = true;
+        do {
+            System.out.print("Qual NOME de Filme? ");
+            String filmeNome = leitor.nextLine();
+            if (filmeNome.equalsIgnoreCase("sair"))
+                repete = false;
+            else {
+                diretor = null;
+                ArrayList<Ator> elenco = new ArrayList<>();
+                // Aqui, diferente de Ator e Diretor, vários filmes podem ter o mesmo nome
+                System.out.print("Qual DESCRIÇÃO para o Filme? ");
+                String filmeDescricao =  leitor.nextLine();
+                String filmeGenero = processaEntradaGenero();
+                System.out.print("Qual DATA LANÇAMENTO (formato numérico: yyyy-mm-dd) do Filme? ");
+                String filmeDataLancamento =  leitor.nextLine();
+
+                Double filmeOrcamento = 1_000_000.0;
+
+                diretor = pesquisarDiretor("Clint Eastwood");
+
+                System.out.print("\nQuais ATORES participaram do Filme? Escolha pelo número:");
+                int i = 0;
+                for (Ator item : listaAtores){
+                    System.out.printf("\n %d - %s", i++, item.getNome());
+                }
+                // Poderia incluir uma linha para incluir um novo ator que
+                // chama o respectivo método de inclusão Ator.
+                boolean continuar = true;
+                do {
+                    System.out.print("\nQual número de ator a incluir (SAIR para terminar): ");
+                    String itemAtor = leitor.nextLine();
+                    if (itemAtor.equalsIgnoreCase("sair"))
+                        continuar = false;
+                    else
+                        elenco.add(listaAtores.get(Integer.parseInt(itemAtor)));
+                } while (continuar);
+
+                listaFilmes.add(new Filme(filmeNome, filmeDescricao, filmeGenero, LocalDate.parse(filmeDataLancamento), filmeOrcamento, elenco, diretor));
+            }
+        } while (repete);
     }
 
-
+    private static String processaEntradaGenero() {
+        Scanner leitor = new Scanner(System.in);
+        System.out.print("\nEscolha qual GÊNERO do filme:");
+        System.out.printf("\n%s\n", Arrays.toString(tiposGeneros));
+        String genero = leitor.nextLine();
+        for (String item : tiposGeneros) {
+            if (item.equalsIgnoreCase(genero))
+                return item;
+        }
+        return null;
+    }
 
 
     // ===========  Métodos Privados para INCLUSÃO ===========
     /* Se inclusão bem sucedida, returna referência ao objeto criado;
            caso contrário, null.
-      -incluirAtor(nomeAtor : String) : Ator
-      -incluirDiretor(nomeDiretor: String) : Diretor
-      -incluirFilme(nomeFilme : String) : Filme
+        -incluirAtor(nomeAtor : String) : Ator
+        -incluirDiretor(nomeDiretor: String) : Diretor
+        -incluirFilme(nomeFilme : String) : Filme
      */
     static Ator incluirAtor(String nomeAtor) {
         Ator ator = null;
@@ -122,7 +228,7 @@ public class IMDB {
     static Diretor incluirDiretor(String nomeDiretor) {
         Diretor diretor = null;
         try {
-            diretor = new Diretor(nomeDiretor);
+            diretor = new Diretor(nomeDiretor, false);
             listaDiretores.add(diretor);
         } catch (RuntimeException e) {
             System.err.println("Erro na criação objeto Diretor");
@@ -136,7 +242,7 @@ public class IMDB {
 
 
 
-    // =========== Métodos Públicos para PESQUISAR  ===========
+    // =========== Métodos Públicos para PESQUISAR e IMPRIMIR ===========
     /* Pesquisas de Ator e Diretor retornam um único objeto:
             - nomes são chaves primárias
        Pesquisas de Filmes retornam um array:
@@ -145,6 +251,9 @@ public class IMDB {
       +pesquisarDiretor() : void
       +pesquisarFilme() : void
      */
+    static void imprimirAtores(){
+
+    }
     static Ator pesquisarAtor(String nomeDiretor) {
         return null;
     }
@@ -159,6 +268,22 @@ public class IMDB {
         return null;
     }
 
+    static void imprimeListaAtores() {
+        System.out.print("\n\n === LISTA ATORES === \n");
+        for (Ator item : listaAtores)
+            System.out.println(item.toString());
+    }
+    static void imprimeListaDiretores() {
+        System.out.print("\n\n === LISTA DIRETORES === \n");
+        for (Diretor item : listaDiretores)
+            System.out.println(item.toString());
+    }
+
+    static void imprimeListaFilmes() {
+        System.out.print("\n\n === LISTA FILMES === \n");
+        for (Filme item : listaFilmes)
+            System.out.println(item.toString());
+    }
 
 
     // =========== Métodos Públicos para TESTES INTERNOS  ===========
@@ -189,9 +314,22 @@ public class IMDB {
         OperacoesFilme.incluirFilme (filme1);
         System.out.println("Filme incluido com sucesso.");
 
+        // @Gerson start --------------------
+        listaFilmes.add(filme);
+        listaFilmes.add(filme1);
+
+        System.out.print("\n\n === LISTA FILMES === \n");
+        for (Ator item : listaAtores) {
+            System.out.println(item.toString());
+        }
+        // @Gerson --------------------finish
+
+
     }
 
     public static void testPessoa() {
+        ArrayList<Diretor> diretores = new ArrayList<>();
+
 
     }
 
@@ -219,6 +357,21 @@ public class IMDB {
         // Obtendo os nomes dos atores no elenco
         ArrayList<String> nomes = atores.getAtores();
         System.out.println(nomes);
+
+        // @Gerson start --------------------
+        listaAtores.add(new Ator("Deyse", LocalDate.parse("1968-02-27"),
+                "Rio de Janeiro",
+                false));
+        listaAtores.add(new Ator("Gustavo", LocalDate.parse("1999-11-10"),
+                "Brasileira",
+                false));
+
+        System.out.print("\n\n === LISTA ATORES === \n");
+        for (Ator item : listaAtores) {
+            System.out.println(item.toString());
+        }
+        // @Gerson --------------------finish
+
     }
 
     /* Método para testar a funcionalidade da classe Diretor.
@@ -226,13 +379,14 @@ public class IMDB {
        fase do projeto.
     */
     public static void testDiretor() {
-        listaDiretores.add(new Diretor("Antoine Fuqua"));
+        System.out.print("\n\n ===  Testa DIRETORES: criação objetos e impressão  ====\n");
+        listaDiretores.add(new Diretor("Antoine Fuqua", false));
+        listaDiretores.add(new Diretor("Elliott Lester", false));
+        listaDiretores.add(new Diretor("Christopher Edward Nolan", LocalDate.parse("1970-07-30"), "London", false));
 
-        System.out.printf("\n\n === LISTA DIRETORES === \n");
+        System.out.print("\n\n === LISTA DIRETORES === \n");
         for (Diretor item : listaDiretores) {
-            System.out.println("Nome diretor: " + item.getNomeDiretor());
             System.out.println(item.toString());
-
         }
     }
 

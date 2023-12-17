@@ -143,7 +143,7 @@ classDiagram
       +ArrayList<Ator> listaAtores
       +ArrayList<Diretor> listaDiretores
       +ArrayList<Filme> listaFilmes
-      +Enum tiposGeneros
+      -String[] tiposGeneros
       +main(String[] args)
       +processarEntrada()
       +processarEntradaAtor()
