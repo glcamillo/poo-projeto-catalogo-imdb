@@ -1,4 +1,4 @@
-package adatech.poo.imdb;
+package src.adatech.poo.imdb;
 
 // Não é necessário, pois todas as classes estarão no mesmo pacote.
 // import adatech.poo.imdb.Diretor;
@@ -72,7 +72,8 @@ public class IMDB {
             System.out.println(" 5. Imprime Lista Diretores");
             System.out.println(" 6. Imprime Lista Filmes");
             System.out.println(" 7. Imprime todas as listas");
-            System.out.println(" 8 9 10. PESQUISAS");
+            System.out.println(" 8 9. PESQUISAS");
+            System.out.println(" 10. Pesquisar Filme");
             System.out.println(" 11. Testa classe Ator e imprime lista");
             System.out.println(" 12. Testa classe Diretor e imprime lista");
             System.out.println(" 13. Testa classe FIlme e imprime lista");
@@ -102,6 +103,9 @@ public class IMDB {
                     imprimeListaAtores();
                     imprimeListaDiretores();
                     imprimeListaFilmes();
+                    break;
+                case "10":
+                    pesquisarFilmes();
                     break;
                 case "11":
                     testAtor();
@@ -264,8 +268,31 @@ public class IMDB {
         }
         return null;
     }
-    static Filme[] pesquisarFilmes(String nomeFilme) {
-        return null;
+    static void pesquisarFilmes() {
+        Scanner leitor = new Scanner(System.in);
+        boolean repete = true, achou = false;
+        do {
+            System.out.print("Qual NOME do Filme a pesquisar? ");
+            String filmeNome = leitor.nextLine();
+            if (filmeNome.equalsIgnoreCase("sair"))
+                repete = false;
+            else {
+                achou = false;
+                for (Filme item : listaFilmes) {
+                    if (item.getNomeFilme().equalsIgnoreCase(filmeNome)) {
+                        System.out.println("Nome Filme: " + item.getNomeFilme());
+                        System.out.println("Ano de Lançamento: " + item.getDataLancamento());
+                        System.out.println("Descrição: " + item.getDescricaoFilme());
+                        System.out.println("Gênero: " + item.genero);
+                        System.out.println("Diretor: " + item.diretorFilme);
+                        System.out.println("Atores: " + item.elenco);
+                        achou = true;
+                        break;
+                    }
+                }
+                if (!achou) System.out.println("Filme não cadastrado: " + filmeNome);
+            }
+        } while (repete);
     }
 
     static void imprimeListaAtores() {
@@ -296,18 +323,15 @@ public class IMDB {
        fase do projeto.
     */
     public static void testFilme() {
+        Diretor diretorFilme = new Diretor("Clint Eastwood",true);
         Filme filme = new Filme("As pontes de Madison","O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
                 " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
                 "Drama romântico",LocalDate.of(1995,05,16),15000000.00,
-                "Clint Eastwood", new String[]{"Clint Eastwood", "Merryl Streep"});
-//        filme = ("As pontes de Madison";"O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
-//                " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
-//                "Drama romântico", "Clint Eastwood", "1995", String.valueOf(15000000.00),
-//                "Clint Eastwood", "Merryl Streep");
-//
+                diretorFilme, new String[] {"Clint Eastwood","Merryl Streep"});
+        diretorFilme = new Diretor("Christopher Nolan",true);
         Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
                 "de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.","Aventura, Ficção Científica",
-                LocalDate.of(2014,07,15),1000000.00,"Christopher Nolan",new String []
+                LocalDate.of(2014,07,15),1000000.00,diretorFilme,new String []
                 {"Matthew McConaughey","Anne Hathaway", "Jessica Chastain"}) ;
 
         OperacoesFilme.incluirFilme (filme);

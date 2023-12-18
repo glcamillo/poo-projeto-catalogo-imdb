@@ -1,4 +1,4 @@
-package adatech.poo.imdb;
+package src.adatech.poo.imdb;
 
 import java.time.LocalDate;
 
