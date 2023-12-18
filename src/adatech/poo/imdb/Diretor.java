@@ -1,4 +1,4 @@
-package adatech.poo.imdb;
+package src.adatech.poo.imdb;
 
 public class Diretor {
     private String nomeDiretor;
