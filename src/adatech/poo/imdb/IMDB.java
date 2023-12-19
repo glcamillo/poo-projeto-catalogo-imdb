@@ -362,40 +362,29 @@ public class IMDB {
        fase do projeto.
     */
     public static void testAtor() {
-        // Lista de filmes para cada ator
-        ArrayList<String> filmes = new ArrayList<>(Arrays.asList("volvo", "BMW", "Ford", "Mazda"));
+        ArrayList<String> filmes;
+        src.adatech.poo.imdb.Ator atores = new Ator();
+        ArrayList<String> lista = atores.getAtores();
 
-        // Instância da classe Elenco
-        Elenco atores = new Elenco();
+        // Exemplo 1
+        atores.cadastrarAtor("Tom Hanks", "09/07/1956", "Concord", new ArrayList<>(Arrays.asList("Forrest Gump", "O resgate do soldado Ryan", "Náufrago", "Toy Story")));
 
-        // Adicionando atores ao elenco
-        atores.setElenco("Deyse", "27/02/1968", "Rio de Janeiro", filmes);
-        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu",filmes);
+        // Exemplo 2
+        atores.cadastrarAtor("Meryl Streep", "22/06/1949", "Summit", new ArrayList<>(Arrays.asList("O diabo veste Prada", "A escolha de Sofia", "Kramer vs. Kramer", "Mamma Mia!")));
 
-        // Obtendo a lista completa de atores e seus detalhes
-        ArrayList<Ator> pessoas = atores.getElenco();
-        for (Ator ator : pessoas) {
-            ator.display();
+        // Exemplo 3
+        atores.cadastrarAtor("Leonardo DiCaprio", "11/11/1974", "Los Angeles", new ArrayList<>(Arrays.asList("Titanic", "O Regresso", "A Origem", "Prenda-me se for capaz")));
+
+        // Exemplo 4
+        atores.cadastrarAtor("Julia Roberts", "28/10/1967", "Atlanta", new ArrayList<>(Arrays.asList("Uma Linda Mulher", "Erin Brockovich", "Álbum de Família", "Notting Hill")));
+
+        // Exemplo 5
+        atores.cadastrarAtor("Brad Pitt", "18/12/1963", "Shawnee", new ArrayList<>(Arrays.asList("Clube da Luta", "Bastardos Inglórios", "Entrevista com o Vampiro", "Onze Homens e um Segredo")));
+
+        //System.out.println(lista);
+        for (String ator : lista) {
+            System.out.println("Ator: " + ator);
         }
-
-        // Obtendo os nomes dos atores no elenco
-        ArrayList<String> nomes = atores.getAtores();
-        System.out.println(nomes);
-
-        // @Gerson start --------------------
-        listaAtores.add(new Ator("Deyse", LocalDate.parse("1968-02-27"),
-                "Rio de Janeiro",
-                false));
-        listaAtores.add(new Ator("Gustavo", LocalDate.parse("1999-11-10"),
-                "Brasileira",
-                false));
-
-        System.out.print("\n\n === LISTA ATORES === \n");
-        for (Ator item : listaAtores) {
-            System.out.println(item.toString());
-        }
-        // @Gerson --------------------finish
-
     }
 
     /* Método para testar a funcionalidade da classe Diretor.
