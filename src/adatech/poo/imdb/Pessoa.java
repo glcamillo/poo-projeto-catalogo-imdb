@@ -1,30 +1,30 @@
-package src.adatech.poo.imdb;
+package adatech.poo.imdb;
 
 import java.time.LocalDate;
 
 public abstract class Pessoa {
     protected String nome;
     protected LocalDate dataNascimento;
-    protected String nacionalidade;
+    protected String naturalidade;
 
     public Pessoa() {
     }
     public Pessoa(String nome){
         this.nome = nome;
         this.dataNascimento = null;
-        this.nacionalidade = null;
+        this.naturalidade = null;
     }
 
     public Pessoa(String nome, LocalDate dataNascimento) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
-        this.nacionalidade = null;
+        this.naturalidade = null;
     }
 
-    public Pessoa(String nome, LocalDate dataNascimento, String nacionalidade) {
+    public Pessoa(String nome, LocalDate dataNascimento, String naturalidade) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
-        this.nacionalidade = nacionalidade;
+        this.naturalidade = naturalidade;
     }
 
     public String getNome() {
@@ -35,24 +35,24 @@ public abstract class Pessoa {
         return dataNascimento;
     }
 
-    public String getNacionalidade() {
-        return nacionalidade;
+    public String getNaturalidade() {
+        return naturalidade;
     }
 
     @Override
     public String toString() {
-        if (dataNascimento == null && nacionalidade == null) {
+        if (dataNascimento == null && naturalidade == null) {
             return "Pessoa{" +
-                    "nome='" + nome + '\'';
+                    "Nome='" + nome + '\'';
         }
-        if (dataNascimento != null && nacionalidade == null) {
-            return "Pessoa{nome='" + nome + '\'' +
-                    ", dataNascimento=" + dataNascimento + '}';
+        if (dataNascimento != null && naturalidade == null) {
+            return "Pessoa{Nome='" + nome + '\'' +
+                    ", Dt Nascimento=" + dataNascimento + '}';
         }
         return "Pessoa{" +
-                "nome='" + nome + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", nacionalidade='" + nacionalidade + '\'' +
+                "Nome='" + nome + '\'' +
+                ", Dt Nascimento=" + dataNascimento +
+                ", Naturalidade='" + naturalidade + '\'' +
                 '}';
     }
 }

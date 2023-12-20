@@ -1,12 +1,12 @@
-package src.adatech.poo.imdb;
+package adatech.poo.imdb;
 
 import java.time.LocalDate;
 
 public class Diretor extends Pessoa{
     private boolean diretorEmFilme;
 
-    public Diretor(String nomeDiretor, LocalDate dataNacimento, String nacionalidade, boolean diretorEmFilme){
-        super(nomeDiretor, dataNacimento, nacionalidade);
+    public Diretor(String nomeDiretor, LocalDate dataNacimento, String naturalidade, boolean diretorEmFilme){
+        super(nomeDiretor, dataNacimento, naturalidade);
         this.diretorEmFilme = diretorEmFilme;
     }
 
@@ -20,7 +20,7 @@ public class Diretor extends Pessoa{
         this.diretorEmFilme = diretorEmFilme;
     }
 
-    public String getNomeDiretor(){
+    public String getNomeDiretor() {
         return super.getNome();
     }
 
@@ -31,10 +31,10 @@ public class Diretor extends Pessoa{
     @Override
     public String toString() {
         return "Diretor{" +
-                "diretorEmFilme=" + diretorEmFilme +
-                ", nome='" + nome + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", nacionalidade='" + nacionalidade + '\'' +
+                "Foi diretor em Filme? " + diretorEmFilme +
+                ", Nome='" + nome + '\'' +
+                ", Dt Nasc=" + dataNascimento +
+                ", Naturalidade='" + naturalidade + '\'' +
                 '}';
     }
 }
