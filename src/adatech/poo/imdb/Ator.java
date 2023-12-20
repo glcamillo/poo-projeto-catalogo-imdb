@@ -1,12 +1,12 @@
-package src.adatech.poo.imdb;
+package adatech.poo.imdb;
 
 import java.time.LocalDate;
 
 public class Ator extends Pessoa {
     private boolean atorEmFilme;
 
-    public Ator(String nome, LocalDate dataNascimento, String nacionalidade, boolean atorEmFilme) {
-        super(nome, dataNascimento, nacionalidade);
+    public Ator(String nome, LocalDate dataNascimento, String naturalidade, boolean atorEmFilme) {
+        super(nome, dataNascimento, naturalidade);
         this.atorEmFilme = atorEmFilme;
     }
 
@@ -18,6 +18,10 @@ public class Ator extends Pessoa {
     public Ator(String nome, boolean atorEmFilme) {
         super(nome);
         this.atorEmFilme = atorEmFilme;
+    }
+
+    public Ator() {
+
     }
 
     public void setAtorEmFilme(boolean atorEmFilme) {
@@ -34,7 +38,7 @@ public class Ator extends Pessoa {
                 "Ator em Filme?" + atorEmFilme +
                 ", Nome='" + nome + '\'' +
                 ", Dt Nascimento=" + dataNascimento +
-                ", nacionalidade='" + nacionalidade + '\'' +
+                ", Naturalidade='" + naturalidade + '\'' +
                 '}';
     }
 }
