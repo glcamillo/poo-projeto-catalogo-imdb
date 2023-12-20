@@ -20,7 +20,7 @@ public class Ator extends Pessoa{
 
     // Sugiro excluir essa referência a filmes.
     // Deixar pra pesquisar por atores na classe filme.
-    private ArrayList<String> filmes;
+    //private ArrayList<String> filmes;
 
     public Ator(String nome, LocalDate dataNascimento, String nacionalidade, boolean atorEmFilme) {
         super(nome, dataNascimento, nacionalidade);
@@ -40,18 +40,22 @@ public class Ator extends Pessoa{
     }
     // @Gerson --------------------finish
 
+    public void setAtorEmFilme(boolean atorEmFilme) {
+        this.atorEmFilme = atorEmFilme;
+    }
+
     // Construtor para inicializar um objeto Ator
-    public Ator(String nome, String dataNascimentoAtor, String localNascimentoAtor, ArrayList<String> filmes) {
+    public Ator(String nome, String dataNascimentoAtor, String localNascimentoAtor) {
         this.nomeAtor = nome;
         this.dataNascimentoAtor = dataNascimentoAtor;
         this.localNascimentoAtor = localNascimentoAtor;
-        this.filmes = filmes;
+    //    this.filmes = filmes;
     }
 
     // Método para exibir informações sobre o ator
     public void display() {
-        System.out.println("O ator: " + nomeAtor + " nasceu em " + dataNascimentoAtor + " em " + localNascimentoAtor +
-                " e fez os filmes: " + filmes);
+        System.out.println("O ator: " + nomeAtor + " nasceu em " +
+                dataNascimentoAtor + " em " + localNascimentoAtor);
     }
 
 
@@ -80,8 +84,10 @@ class Elenco {
     }
  
     // Método para adicionar um ator ao elenco
-    public void setElenco(String nome, String dataNascimento, String localNascimento, ArrayList<String> filmes) {
-        Ator ator = new Ator(nome, dataNascimento, localNascimento, filmes);
+    // public void setElenco(String nome, String dataNascimento, String localNascimento, ArrayList<String> filmes) {
+        public void setElenco(String nome, String dataNascimento,
+                              String localNascimento) {
+        Ator ator = new Ator(nome, dataNascimento, localNascimento);
         elenco.add(ator);
      }
  

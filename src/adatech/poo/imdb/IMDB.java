@@ -72,7 +72,8 @@ public class IMDB {
             System.out.println(" 5. Imprime Lista Diretores");
             System.out.println(" 6. Imprime Lista Filmes");
             System.out.println(" 7. Imprime todas as listas");
-            System.out.println(" 8 9. PESQUISAS");
+            System.out.println(" 8. Pesquisar Ator ");
+            System.out.println(" 9. Pesquisar Diretor");
             System.out.println(" 10. Pesquisar Filme");
             System.out.println(" 11. Testa classe Ator e imprime lista");
             System.out.println(" 12. Testa classe Diretor e imprime lista");
@@ -104,6 +105,12 @@ public class IMDB {
                     imprimeListaDiretores();
                     imprimeListaFilmes();
                     break;
+                case "8":
+                    pesquisarAtores();
+                    break;
+                case "9":
+                    pesquisarDiretores();
+                    break;
                 case "10":
                     pesquisarFilmes();
                     break;
@@ -127,7 +134,49 @@ public class IMDB {
         } while(continuar);
     }
 
-
+    static void processaEntradaAtor() {
+        Ator ator = null;
+        Scanner leitor = new Scanner(System.in);
+        System.out.println(" === Entrada de ATORES (digitar SAIR para terminar) === ");
+        boolean repete = true;
+        do {
+            System.out.print("Qual nome do Ator / Atriz? ");
+            String linhaNomeAtor = leitor.nextLine();
+            if (linhaNomeAtor.equalsIgnoreCase("sair"))
+                repete = false;
+            else {
+                ator = pesquisarAtor(linhaNomeAtor);
+                if (ator == null) {
+                    System.out.printf("\nAtor/Atriz de nome %s não existe. Será incluído.\n", linhaNomeAtor);
+                    ator = incluirAtor(linhaNomeAtor);
+                    if (ator == null) {
+                        System.err.println("Objeto ator não criado");
+                    }
+                }
+            }
+        } while (repete);
+    }
+    static Ator incluirAtor(String nomeAtor) {
+        Ator ator = null;
+        try {
+            ator = new Ator(nomeAtor, null,null,false);
+            listaAtores.add(ator);
+        } catch (RuntimeException e) {
+            System.err.println("Erro na criação objeto Ator");
+        }
+        return ator;
+    }
+    static Ator pesquisarAtor(String nomeAtor) {
+        Ator atorRetornado = null;
+        for (Ator item : listaAtores) {
+            if (item.getNome().equalsIgnoreCase(nomeAtor)) {
+                atorRetornado = item;
+                break;
+            }
+            else atorRetornado = null ;
+        }
+        return atorRetornado;
+    }
     static void processarEntradaDiretor() {
         Diretor diretor = null;
         Scanner leitor = new Scanner(System.in);
@@ -151,9 +200,7 @@ public class IMDB {
         } while (repete);
     }
 
-    static void processaEntradaAtor() {
 
-    }
 
     static void processaEntradaFilme() {
         Filme filme = null;
@@ -173,18 +220,21 @@ public class IMDB {
                 ArrayList<Ator> elenco = new ArrayList<>();
                 // Aqui, diferente de Ator e Diretor, vários filmes podem ter o mesmo nome
                 System.out.print("Qual DESCRIÇÃO para o Filme? ");
-                String filmeDescricao =  leitor.nextLine();
+                String filmeDescricao = leitor.nextLine();
                 String filmeGenero = processaEntradaGenero();
                 System.out.print("Qual DATA LANÇAMENTO (formato numérico: yyyy-mm-dd) do Filme? ");
-                String filmeDataLancamento =  leitor.nextLine();
+                String filmeDataLancamento = leitor.nextLine();
 
                 Double filmeOrcamento = 1_000_000.0;
 
-                diretor = pesquisarDiretor("Clint Eastwood");
-
+                System.out.print("Qual o nome do Diretor do Filme? ");
+                String diretorFilme = leitor.nextLine();
+                if (pesquisarDiretor(diretorFilme) == null) {
+                    incluirDiretor(diretorFilme);
+                }
                 System.out.print("\nQuais ATORES participaram do Filme? Escolha pelo número:");
                 int i = 0;
-                for (Ator item : listaAtores){
+                for (Ator item : listaAtores) {
                     System.out.printf("\n %d - %s", i++, item.getNome());
                 }
                 // Poderia incluir uma linha para incluir um novo ator que
@@ -193,16 +243,16 @@ public class IMDB {
                 do {
                     System.out.print("\nQual número de ator a incluir (SAIR para terminar): ");
                     String itemAtor = leitor.nextLine();
-                    if (itemAtor.equalsIgnoreCase("sair"))
+                    if (itemAtor.equalsIgnoreCase("sair")) {
                         continuar = false;
-                    else
-                        elenco.add(listaAtores.get(Integer.parseInt(itemAtor)));
-                } while (continuar);
+                    } else elenco.add(listaAtores.get(Integer.parseInt(itemAtor)));
 
-                listaFilmes.add(new Filme(filmeNome, filmeDescricao, filmeGenero, LocalDate.parse(filmeDataLancamento), filmeOrcamento, elenco, diretor));
+                } while (continuar);
+                listaFilmes.add(new Filme(filmeNome, filmeDescricao, filmeGenero, LocalDate.parse(filmeDataLancamento), filmeOrcamento, diretor, elenco));
             }
-        } while (repete);
+        } while (repete) ;
     }
+
 
     private static String processaEntradaGenero() {
         Scanner leitor = new Scanner(System.in);
@@ -224,10 +274,7 @@ public class IMDB {
         -incluirDiretor(nomeDiretor: String) : Diretor
         -incluirFilme(nomeFilme : String) : Filme
      */
-    static Ator incluirAtor(String nomeAtor) {
-        Ator ator = null;
-        return ator;
-    }
+
 
     static Diretor incluirDiretor(String nomeDiretor) {
         Diretor diretor = null;
@@ -258,9 +305,8 @@ public class IMDB {
     static void imprimirAtores(){
 
     }
-    static Ator pesquisarAtor(String nomeDiretor) {
-        return null;
-    }
+
+    static void pesquisarAtores() {    }
     static Diretor pesquisarDiretor(String nomeDiretor) {
         for (Diretor item : listaDiretores) {
             if (item.getNomeDiretor().toLowerCase().equalsIgnoreCase(nomeDiretor))
@@ -268,6 +314,9 @@ public class IMDB {
         }
         return null;
     }
+    static void pesquisarDiretores () {}
+
+
     static void pesquisarFilmes() {
         Scanner leitor = new Scanner(System.in);
         boolean repete = true, achou = false;
@@ -324,26 +373,45 @@ public class IMDB {
     */
     public static void testFilme() {
         Diretor diretorFilme = new Diretor("Clint Eastwood",true);
+        ArrayList<Ator> elenco = new ArrayList();
+        for (Ator item : listaAtores) {
+            if (item.getNome().equalsIgnoreCase("Clint Eastwood"))
+                elenco.add (item);
+        }
+        for (Ator item : listaAtores) {
+            if (item.getNome().equalsIgnoreCase("Merryl Streep"))
+                elenco.add (item);
+        }
+
         Filme filme = new Filme("As pontes de Madison","O fotógrafo Robert Kincaid (Clint Eastwood) vagou" +
                 " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
                 "Drama romântico",LocalDate.of(1995,05,16),15000000.00,
-                diretorFilme, new String[] {"Clint Eastwood","Merryl Streep"});
-        diretorFilme = new Diretor("Christopher Nolan",true);
-        Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
+                diretorFilme, elenco);
+        Diretor diretorFilme1 = new Diretor("Christopher Nolan",true);
+        ArrayList<Ator> elenco1 = new ArrayList<>();
+        for (Ator item : listaAtores) {
+            if (item.getNome().equals("Matthew McConaughey"))
+                elenco1.add (item);
+        }
+        for (Ator item : listaAtores) {
+            if (item.getNome().equals("Anne Hathaway"))
+                elenco1.add (item);
+        }
+        for (Ator item : listaAtores) {
+            if (item.getNome().equals("Jessica Chastain"))
+                elenco1.add (item);
+        }
+                Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
                 "de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.","Aventura, Ficção Científica",
-                LocalDate.of(2014,07,15),1000000.00,diretorFilme,new String []
-                {"Matthew McConaughey","Anne Hathaway", "Jessica Chastain"}) ;
+                LocalDate.of(2014,07,15),1000000.00,diretorFilme1,elenco1) ;
 
-        OperacoesFilme.incluirFilme (filme);
-        OperacoesFilme.incluirFilme (filme1);
-        System.out.println("Filme incluido com sucesso.");
 
         // @Gerson start --------------------
         listaFilmes.add(filme);
         listaFilmes.add(filme1);
 
         System.out.print("\n\n === LISTA FILMES === \n");
-        for (Ator item : listaAtores) {
+        for (Filme item : listaFilmes) {
             System.out.println(item.toString());
         }
         // @Gerson --------------------finish
@@ -369,8 +437,13 @@ public class IMDB {
         Elenco atores = new Elenco();
 
         // Adicionando atores ao elenco
-        atores.setElenco("Deyse", "27/02/1968", "Rio de Janeiro", filmes);
-        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu",filmes);
+        atores.setElenco ("Deyse", "27/02/1968", "Rio de Janeiro");
+        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu");
+        atores.setElenco("Clint Eastwood", "31/05/1930", "San Francisco");
+        atores.setElenco("Merryl Streep","22/06/1949","Summit,New Jersey");
+        atores.setElenco("Matthew McConaughey", "04/11/1969", "Texas");
+        atores.setElenco("Anne Hathaway","12/11/1982","Brooklyn");
+        atores.setElenco("Jessica Chastain","24/03/1977","Sacramento");
 
         // Obtendo a lista completa de atores e seus detalhes
         ArrayList<Ator> pessoas = atores.getElenco();
@@ -388,6 +461,21 @@ public class IMDB {
                 false));
         listaAtores.add(new Ator("Gustavo", LocalDate.parse("1999-11-10"),
                 "Brasileira",
+                false));
+        listaAtores.add(new Ator("Clint Eastwood", LocalDate.parse("1930-05-31"),
+                "Americano",
+                false));
+        listaAtores.add(new Ator("Merryl Streep", LocalDate.parse("1949-06-22"),
+                "Americana",
+                false));
+        listaAtores.add(new Ator("Matthew McConaughey", LocalDate.parse("1969-11-04"),
+                "Americano",
+                false));
+        listaAtores.add(new Ator("Anne Hathaway", LocalDate.parse("1982-11-12"),
+                "Americana",
+                false));
+        listaAtores.add(new Ator("Jessica Chastain", LocalDate.parse("1977-03-24"),
+                "Americana",
                 false));
 
         System.out.print("\n\n === LISTA ATORES === \n");

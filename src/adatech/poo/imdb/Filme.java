@@ -13,19 +13,20 @@ public class Filme {
         LocalDate dataLancamento;
 
         private double orcamento;
-        String[] atores = new String[5];
-        String diretor;
+//        String[] atores = new String[5];
+//        String diretor;
         // @Gerson  start -------------------
         ArrayList<Ator>  elenco = new ArrayList<>();
         Diretor diretorFilme;
+    public Filme (){}
 
     public Filme (String nomeFilme,
                  String descricaoFilme,
                  String genero,
                  LocalDate dataLancamento,
-                 double orcamento,
-                 ArrayList<Ator> elenco,
-                 Diretor diretorFilme) {
+                 double orcamento, Diretor diretorFilme,
+                 ArrayList<Ator> elenco)
+    {
         this.nomeFilme = nomeFilme;
         this.descricaoFilme = descricaoFilme;
         this.genero = genero;
@@ -49,17 +50,7 @@ public class Filme {
     }
 
     // @Gerson --------------------finish
-        public Filme (){}
-        public Filme (String nomeFilme, String descricaoFilme,String genero,LocalDate dataLancamento,
-                      double orcamento, Diretor diretorFilme, String[] atores) {
-            this.nomeFilme = nomeFilme;
-            this.dataLancamento = dataLancamento;
-            this.orcamento = orcamento;
-            this.atores = atores;
-            this.descricaoFilme = descricaoFilme;
-            this.diretorFilme = diretorFilme;
-            this.genero = genero;
-        }
+
         public String getNomeFilme() {
             return this.nomeFilme;
         }
