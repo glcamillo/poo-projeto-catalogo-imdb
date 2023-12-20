@@ -1,21 +1,25 @@
-package adatech.poo.imdb;
+package src.adatech.poo.imdb;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+// Não é necessário, pois todas as classes estarão no mesmo pacote.
+// import adatech.poo.imdb.Diretor;
 
 public class Filme {
         private String nomeFilme;
         public String descricaoFilme;
         String genero;
-        String diretor;
         LocalDate dataLancamento;
 
         private double orcamento;
-        String [] atores = new String[5];
+        String[] atores = new String[5];
+        String diretor;
         // @Gerson  start -------------------
-        ArrayList<Ator> elenco = new ArrayList<>();
+        ArrayList<Ator>  elenco = new ArrayList<>();
         Diretor diretorFilme;
 
-    public Filme(String nomeFilme,
+    public Filme (String nomeFilme,
                  String descricaoFilme,
                  String genero,
                  LocalDate dataLancamento,
@@ -45,15 +49,15 @@ public class Filme {
     }
 
     // @Gerson --------------------finish
-        public Filme () {}
+        public Filme (){}
         public Filme (String nomeFilme, String descricaoFilme,String genero,LocalDate dataLancamento,
-                      double orcamento, String diretor, String[] atores) {
+                      double orcamento, Diretor diretorFilme, String[] atores) {
             this.nomeFilme = nomeFilme;
             this.dataLancamento = dataLancamento;
             this.orcamento = orcamento;
             this.atores = atores;
             this.descricaoFilme = descricaoFilme;
-            this.diretor = diretor;
+            this.diretorFilme = diretorFilme;
             this.genero = genero;
         }
         public String getNomeFilme() {

@@ -1,19 +1,40 @@
 package src.adatech.poo.imdb;
 
-public class Diretor {
-    private String nomeDiretor;
+import java.time.LocalDate;
 
-    Diretor(String nomeDiretor){
-        this.nomeDiretor = nomeDiretor;
+public class Diretor extends Pessoa{
+    private boolean diretorEmFilme;
+
+    public Diretor(String nomeDiretor, LocalDate dataNacimento, String nacionalidade, boolean diretorEmFilme){
+        super(nomeDiretor, dataNacimento, nacionalidade);
+        this.diretorEmFilme = diretorEmFilme;
     }
+
+    public Diretor(String nome, boolean diretorEmFilme) {
+        super(nome);
+        this.diretorEmFilme = diretorEmFilme;
+    }
+
+    public Diretor(String nome, LocalDate dataNascimento, boolean diretorEmFilme) {
+        super(nome, dataNascimento);
+        this.diretorEmFilme = diretorEmFilme;
+    }
+
     public String getNomeDiretor(){
-        return this.nomeDiretor;
+        return super.getNome();
+    }
+
+    public void setDiretorEmFilme(boolean diretorEmFilme) {
+        this.diretorEmFilme = diretorEmFilme;
     }
 
     @Override
     public String toString() {
         return "Diretor{" +
-                "nomeDiretor='" + nomeDiretor + '\'' +
+                "diretorEmFilme=" + diretorEmFilme +
+                ", nome='" + nome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", nacionalidade='" + nacionalidade + '\'' +
                 '}';
     }
 }
