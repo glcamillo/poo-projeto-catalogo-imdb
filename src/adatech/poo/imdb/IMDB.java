@@ -148,6 +148,10 @@ public class IMDB {
                     if (ator == null) {
                         System.err.println("Objeto ator não criado");
                     }
+                    repete = false;
+                } else if (ator != null) {
+                    System.out.printf("\nAtor/Atriz já está cadastrado!");
+                    repete = false;
                 }
             }
         } while (repete);
@@ -303,7 +307,31 @@ public class IMDB {
 
     }
 
-    static void pesquisarAtores() {    }
+    static void pesquisarAtores() {
+        String chave = "";
+        boolean encontrou = false;
+        boolean repete = true;
+        Scanner entrada = new Scanner(System.in);
+        do {
+            System.out.println("Qual nome você deseja buscar?");
+            chave = entrada.nextLine();
+            System.out.println("Nome buscado: " + chave);
+            for (Ator ator : listaAtores) {
+                if (ator.getNomeAtor().toLowerCase().contains(chave.toLowerCase())) {
+                    System.out.println(ator.toString());
+                    System.out.println("");
+                    encontrou = true;
+                    repete = false;
+                }
+            }
+            if (!encontrou) {
+                System.out.println("Nenhum resultado encontrado para " + chave);
+            }
+            if(chave.toLowerCase().equals("sair")){
+                repete = false;
+            }
+        }while (repete);
+    }
   
     static Diretor pesquisarDiretor(String nomeDiretor) {
         for (Diretor item : listaDiretores) {
@@ -312,7 +340,31 @@ public class IMDB {
         }
         return null;
     }
-    static void pesquisarDiretores () {}
+    static void pesquisarDiretores () {
+        String chave = "";
+        boolean encontrou = false;
+        boolean repete = true;
+        Scanner entrada = new Scanner(System.in);
+        do {
+            System.out.println("Qual nome você deseja buscar?");
+            chave = entrada.nextLine();
+            System.out.println("Nome buscado: " + chave);
+            for (Diretor diretor : listaDiretores) {
+                if (diretor.getNomeDiretor().toLowerCase().contains(chave.toLowerCase())) {
+                    System.out.println(diretor.toString());
+                    System.out.println("");
+                    encontrou = true;
+                    repete = false;
+                }
+            }
+            if (!encontrou) {
+                System.out.println("Nenhum resultado encontrado para " + chave);
+            }
+            if(chave.toLowerCase().equals("sair")){
+                repete = false;
+            }
+        }while (repete);
+    }
 
 
     static void pesquisarFilmes() {
@@ -424,30 +476,30 @@ public class IMDB {
        fase do projeto.
     */
     public static void testAtor() {
-        ArrayList<String> filmes;
-        src.adatech.poo.imdb.Ator atores = new Ator();
-        ArrayList<String> lista = atores.getAtores();
+        //ArrayList<String> filmes;
+        //src.adatech.poo.imdb.Ator atores = new Ator();
+        // ArrayList<String> lista = atores.getAtores();
 
         // Exemplo 1
-        atores.cadastrarAtor("Tom Hanks", "09/07/1956", "Concord", new ArrayList<>(Arrays.asList("Forrest Gump", "O resgate do soldado Ryan", "Náufrago", "Toy Story")));
+        //atores.cadastrarAtor("Tom Hanks", "09/07/1956", "Concord", new ArrayList<>(Arrays.asList("Forrest Gump", "O resgate do soldado Ryan", "Náufrago", "Toy Story")));
 
         // Adicionando atores ao elenco
-        atores.setElenco ("Deyse", "27/02/1968", "Rio de Janeiro");
-        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu");
-        atores.setElenco("Clint Eastwood", "31/05/1930", "San Francisco");
-        atores.setElenco("Merryl Streep","22/06/1949","Summit,New Jersey");
-        atores.setElenco("Matthew McConaughey", "04/11/1969", "Texas");
-        atores.setElenco("Anne Hathaway","12/11/1982","Brooklyn");
-        atores.setElenco("Jessica Chastain","24/03/1977","Sacramento");
-      
-        // Exemplo 2
-        atores.cadastrarAtor("Meryl Streep", "22/06/1949", "Summit", new ArrayList<>(Arrays.asList("O diabo veste Prada", "A escolha de Sofia", "Kramer vs. Kramer", "Mamma Mia!")));
-
-        // Exemplo 3
-        atores.cadastrarAtor("Leonardo DiCaprio", "11/11/1974", "Los Angeles", new ArrayList<>(Arrays.asList("Titanic", "O Regresso", "A Origem", "Prenda-me se for capaz")));
-
-        // Exemplo 4
-        atores.cadastrarAtor("Julia Roberts", "28/10/1967", "Atlanta", new ArrayList<>(Arrays.asList("Uma Linda Mulher", "Erin Brockovich", "Álbum de Família", "Notting Hill")));
+//        atores.setElenco ("Deyse", "27/02/1968", "Rio de Janeiro");
+//        atores.setElenco("Gustavo","10/11/1999","Nova Iguaçu");
+//        atores.setElenco("Clint Eastwood", "31/05/1930", "San Francisco");
+//        atores.setElenco("Merryl Streep","22/06/1949","Summit,New Jersey");
+//        atores.setElenco("Matthew McConaughey", "04/11/1969", "Texas");
+//        atores.setElenco("Anne Hathaway","12/11/1982","Brooklyn");
+//        atores.setElenco("Jessica Chastain","24/03/1977","Sacramento");
+//
+//        // Exemplo 2
+//        atores.cadastrarAtor("Meryl Streep", "22/06/1949", "Summit", new ArrayList<>(Arrays.asList("O diabo veste Prada", "A escolha de Sofia", "Kramer vs. Kramer", "Mamma Mia!")));
+//
+//        // Exemplo 3
+//        atores.cadastrarAtor("Leonardo DiCaprio", "11/11/1974", "Los Angeles", new ArrayList<>(Arrays.asList("Titanic", "O Regresso", "A Origem", "Prenda-me se for capaz")));
+//
+//        // Exemplo 4
+//        atores.cadastrarAtor("Julia Roberts", "28/10/1967", "Atlanta", new ArrayList<>(Arrays.asList("Uma Linda Mulher", "Erin Brockovich", "Álbum de Família", "Notting Hill")));
 
         listaAtores.add(new Ator("Deyse", LocalDate.parse("1968-02-27"),
                 "Rio de Janeiro",
@@ -470,11 +522,11 @@ public class IMDB {
         listaAtores.add(new Ator("Jessica Chastain", LocalDate.parse("1977-03-24"),
                 "Americana",
                 false));
-        // Exemplo 5
-        atores.cadastrarAtor("Brad Pitt", "18/12/1963", "Shawnee", new ArrayList<>(Arrays.asList("Clube da Luta", "Bastardos Inglórios", "Entrevista com o Vampiro", "Onze Homens e um Segredo")));
+//        // Exemplo 5
+//        atores.cadastrarAtor("Brad Pitt", "18/12/1963", "Shawnee", new ArrayList<>(Arrays.asList("Clube da Luta", "Bastardos Inglórios", "Entrevista com o Vampiro", "Onze Homens e um Segredo")));
 
-        for (String ator : lista) {
-            System.out.println("Ator: " + ator);
+        for (Ator item : listaAtores) {
+            System.out.println(item.toString());
         }
     }
 
