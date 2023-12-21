@@ -25,6 +25,7 @@ hs_err_pid*
 replay_pid*
 
 ### IntelliJ IDEA ###
+.iml
 out/
 .idea/
 !**/src/main/**/out/
