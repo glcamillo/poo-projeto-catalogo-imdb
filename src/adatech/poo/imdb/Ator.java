@@ -1,22 +1,30 @@
-package src.adatech.poo.imdb;
+package adatech.poo.imdb;
 
 import java.time.LocalDate;
 
 public class Ator extends Pessoa {
     private boolean atorEmFilme;
 
-    public Ator(String nomeAtor, LocalDate dataNascimento, String nacionalidade, boolean atorEmFilme) {
-        super(nomeAtor, dataNascimento, nacionalidade);
-        this.atorEmFilme = atorEmFilme;
-    }
-
-    public Ator(String nome, boolean atorEmFilme) {
-        super(nome);
+    public Ator(String nome, LocalDate dataNascimento, String naturalidade, boolean atorEmFilme) {
+        super(nome, dataNascimento, naturalidade);
         this.atorEmFilme = atorEmFilme;
     }
 
     public Ator(String nome, LocalDate dataNascimento, boolean atorEmFilme) {
         super(nome, dataNascimento);
+        this.atorEmFilme = atorEmFilme;
+    }  
+  
+    public Ator(String nome, boolean atorEmFilme) {
+        super(nome);
+        this.atorEmFilme = atorEmFilme;
+    }
+
+    public Ator() {
+
+    }
+
+    public void setAtorEmFilme(boolean atorEmFilme) {
         this.atorEmFilme = atorEmFilme;
     }
 
@@ -24,17 +32,13 @@ public class Ator extends Pessoa {
         return super.getNome();
     }
 
-    public void setAtorEmFilme(boolean atorEmFilme) {
-        this.atorEmFilme = atorEmFilme;
-    }
-
     @Override
     public String toString() {
         return "Ator{" +
-                "atorEmFilme=" + atorEmFilme +
-                ", nome='" + nome + '\'' +
-                ", dataNascimento=" + dataNascimento +
-                ", nacionalidade='" + nacionalidade + '\'' +
+                "Ator em Filme?" + atorEmFilme +
+                ", Nome='" + nome + '\'' +
+                ", Dt Nascimento=" + dataNascimento +
+                ", Naturalidade='" + naturalidade + '\'' +
                 '}';
     }
 }
