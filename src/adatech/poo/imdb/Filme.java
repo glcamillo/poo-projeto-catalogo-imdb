@@ -39,13 +39,13 @@ public class Filme {
     @Override
     public String toString() {
         return "Filme{" +
-                "nomeFilme='" + nomeFilme + '\'' +
-                ", descricaoFilme='" + descricaoFilme + '\'' +
+                "nome:" + nomeFilme + '\'' +
+                ", descricao:'" + descricaoFilme + '\'' +
                 ", genero='" + genero + '\'' +
                 ", dataLancamento=" + dataLancamento +
                 ", orcamento=" + orcamento +
+                ", diretorFilme=" + diretorFilme.getNomeDiretor() +
                 ", elenco=" + elenco +
-                ", diretorFilme=" + diretorFilme +
                 '}';
     }
 

@@ -387,31 +387,36 @@ public class IMDB {
     }
 
     static void pesquisarAtores() {
-            String chave = "";
-            boolean encontrou = false;
-            boolean repete = true;
-            Scanner entrada = new Scanner(System.in);
-            do {
-                System.out.println("Qual nome você deseja buscar?");
-                chave = entrada.nextLine();
-                System.out.println("Nome buscado: " + chave);
-                for (Ator ator : listaAtores) {
-                    if (ator.getNomeAtor().toLowerCase().contains(chave.toLowerCase())) {
-                        System.out.println(ator.toString());
-                        System.out.println("");
-                        encontrou = true;
-                        repete = false;
+        String chave = "";
+        boolean encontrou = false;
+        boolean repete = true;
+        Scanner entrada = new Scanner(System.in);
+        do {
+            System.out.println("Qual nome você deseja buscar?");
+            chave = entrada.nextLine();
+            System.out.println("Nome buscado: " + chave);
+            for (Ator ator : listaAtores) {
+                if (ator.getNomeAtor().toLowerCase().contains(chave.toLowerCase())) {
+                    System.out.println(ator.toString());
+                    System.out.println("");
+                    for (Filme item : listaFilmes ) {
+                        if (item.elenco.contains(ator.getNomeAtor())) {
+                            System.out.println("Filmes que atuou: " + item.getNomeFilme());
+                        }
                     }
-                }
-                if (!encontrou) {
-                    System.out.println("Nenhum resultado encontrado para " + chave);
-                }
-                if(chave.toLowerCase().equals("sair")){
+                    encontrou = true;
                     repete = false;
                 }
-            }while (repete);
+            }
+            if (!encontrou) {
+                System.out.println("Nenhum resultado encontrado para " + chave);
+            }
+            if(chave.toLowerCase().equals("sair")){
+                repete = false;
+            }
+        }while (repete);
     }
-  
+
     static Diretor pesquisarDiretor(String nomeDiretor) {
         for (Diretor item : listaDiretores) {
             if (item.getNomeDiretor().toLowerCase().equalsIgnoreCase(nomeDiretor))
@@ -433,6 +438,11 @@ public class IMDB {
                     System.out.println(diretor.toString());
                     System.out.println("");
                     encontrou = true;
+                    for (Filme item : listaFilmes ) {
+                        if (item.diretorFilme.getNomeDiretor().equals(diretor.getNomeDiretor())) {
+                            System.out.println("Filmes que dirigiu: " + item.getNomeFilme());
+                        }
+                    }
                     repete = false;
                 }
             }
@@ -462,8 +472,11 @@ public class IMDB {
                         System.out.println("Ano de Lançamento: " + item.getDataLancamento());
                         System.out.println("Descrição: " + item.getDescricaoFilme());
                         System.out.println("Gênero: " + item.genero);
-                        System.out.println("Diretor: " + item.diretorFilme);
-                        System.out.println("Atores: " + item.elenco);
+                        System.out.println("Diretor: " + item.diretorFilme.getNomeDiretor());
+                        System.out.print("Atores principais: ");
+                        for (Ator ator : item.elenco) {
+                            System.out.println(ator.getNomeAtor());
+                        }
                         achou = true;
                         break;
                     }
@@ -478,7 +491,7 @@ public class IMDB {
         for (Ator item : listaAtores)
             System.out.println(item.toString());
     }
-  
+
     static void imprimeListaDiretores() {
         System.out.print("\n\n === LISTA DIRETORES === \n");
         for (Diretor item : listaDiretores)
@@ -487,8 +500,10 @@ public class IMDB {
 
     static void imprimeListaFilmes() {
         System.out.print("\n\n === LISTA FILMES === \n");
-        for (Filme item : listaFilmes)
+
+        for (Filme item : listaFilmes) {
             System.out.println(item.toString());
+        }
     }
 
 
@@ -510,7 +525,7 @@ public class IMDB {
                 " pela vida da dona de casa Francesca Johnson (Meryl Streep) por quatro dias na década de 1960.",
                 "Drama romântico",LocalDate.of(1995,05,16),15000000.00,
                 diretorFilme, elenco);
-        Diretor diretorFilme1 = new Diretor("Christopher Nolan",true);
+        Diretor diretorFilme1 = new Diretor("Christopher Edward Nolan",true);
         ArrayList<Ator> elenco1 = new ArrayList<>();
         for (Ator item : listaAtores) {
             if (item.getNome().equals("Matthew McConaughey"))
@@ -524,7 +539,7 @@ public class IMDB {
             if (item.getNome().equals("Jessica Chastain"))
                 elenco1.add (item);
         }
-                Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
+        Filme filme1 = new Filme("Interestelar","Uma equipe de exploradores viaja através de um buraco" +
                 "de minhoca no espaço, na tentativa de garantir a sobrevivência da humanidade.","Aventura, Ficção Científica",
                 LocalDate.of(2014,07,15),1000000.00,diretorFilme1,elenco1) ;
 
@@ -580,7 +595,7 @@ public class IMDB {
         listaDiretores.add(new Diretor("Antoine Fuqua", false));
         listaDiretores.add(new Diretor("Elliott Lester", false));
         listaDiretores.add(new Diretor("Christopher Edward Nolan", LocalDate.parse("1970-07-30"), "London", false));
-
+        listaDiretores.add(new Diretor("Clint Eastwood", LocalDate.parse("1930-06-30"), "Sacramento", false));
         System.out.print(" ===           LISTA DIRETORES          === \n");
         for (Diretor item : listaDiretores) {
             System.out.println(item.toString());
@@ -588,3 +603,5 @@ public class IMDB {
     }
 
 }
+
+
