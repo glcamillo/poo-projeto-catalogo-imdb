@@ -13,8 +13,8 @@ public class Ator extends Pessoa {
     public Ator(String nome, LocalDate dataNascimento, boolean atorEmFilme) {
         super(nome, dataNascimento);
         this.atorEmFilme = atorEmFilme;
-    }  
-  
+    }
+
     public Ator(String nome, boolean atorEmFilme) {
         super(nome);
         this.atorEmFilme = atorEmFilme;
@@ -33,12 +33,15 @@ public class Ator extends Pessoa {
     }
 
     @Override
+//    public String toString() {
+//        return "Ator{" +
+//                "Ator em Filme?" + atorEmFilme +
+//                ", Nome='" + nome + '\'' +
+//                ", Dt Nascimento=" + dataNascimento +
+//                ", Naturalidade='" + naturalidade + '\'' +
+//                '}';
+//    }
     public String toString() {
-        return "Ator{" +
-                "Ator em Filme?" + atorEmFilme +
-                ", Nome='" + nome + '\'' +
-                ", Dt Nascimento=" + dataNascimento +
-                ", Naturalidade='" + naturalidade + '\'' +
-                '}';
+        return String.format("Nome: %s\nData de Nascimento: %s\nNaturalidade: %s\nAtor em Filme? %b\n", nome, dataNascimento, naturalidade, atorEmFilme);
     }
 }

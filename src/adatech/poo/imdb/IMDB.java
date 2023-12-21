@@ -1,7 +1,9 @@
 package adatech.poo.imdb;
 
 import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -166,6 +168,7 @@ public class IMDB {
                 ator = pesquisarAtor(linhaNomeAtor);
                 if (ator == null) {
                     System.out.printf("\nAtor/Atriz de nome %s não existe. Será incluído.\n", linhaNomeAtor);
+
                     ator = incluirAtor(linhaNomeAtor);
                     if (ator == null) {
                         System.err.println("Objeto ator não criado");
@@ -185,12 +188,25 @@ public class IMDB {
      */
     static Ator incluirAtor(String nomeAtor) {
         Ator ator = null;
+        LocalDate nascimento = null;
+        String naturalidade = null;
         try {
-            ator = new Ator(nomeAtor, null,null,false);
+            nascimento = lerData("nascimento");
+        } catch (java.text.ParseException e) {
+            //System.out.println("Formato de data inválido.");
+        }
+        try {
+            naturalidade = lerLocal("nascimento");
+        }catch (java.text.ParseException e){
+            System.out.println("ERRO");
+        }
+        try{
+            ator = new Ator(nomeAtor, nascimento, naturalidade, false);
             listaAtores.add(ator);
         } catch (RuntimeException e) {
             System.err.println("Erro na criação objeto Ator");
         }
+        System.out.println("Cadastro realizado!!!");
         return ator;
     }
     static Ator pesquisarAtor(String nomeAtor) {
@@ -400,15 +416,48 @@ public class IMDB {
 
     public static LocalDate lerData(String mensagem) throws ParseException {
         String dateFormat = "yyy-MM-dd";
+        boolean pular = false;
         System.out.printf("Qual data (ano-mês-dia) de %s (formato numérico:yyyy-mm-dd)? ", mensagem);
-        try {
-            //Scanner leitor = new Scanner(System.in);
-            String dataLidaEntrada = leitor.nextLine();
-            // DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            return LocalDate.parse(dataLidaEntrada);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        do {
+            try {
+                //Scanner leitor = new Scanner(System.in);
+                String dataLidaEntrada = leitor.nextLine();
+                // DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                return LocalDate.parse(dataLidaEntrada);
+            } catch (Exception e) {
+                //throw new RuntimeException(e);
+                System.out.println("Formato de data inválido.");
+                System.out.println("Insira novamente ou pule(Enter):");
+                String chave = leitor.nextLine();
+                if (chave.isEmpty()) {
+                    pular = true;
+                    return null;
+                } else {
+                    return LocalDate.parse(chave);
+                }
+            }
+        }while (pular);
+    }
+    public static String lerLocal(String mensagem) throws ParseException {
+        //String dateFormat = "yyy-MM-dd";
+        boolean pular = false;
+        System.out.printf("Qual local de %s (Cidade)? \n", mensagem);
+        do {
+            String localEntrada = leitor.nextLine();
+            if(localEntrada.isEmpty()) {
+                System.out.println("Local não informado.");
+                System.out.println("Insira novamente ou pule(Enter):");
+                String chave = leitor.nextLine();
+                if (chave.isEmpty()) {
+                    pular = true;
+                    return null;
+                } else {
+                    return chave;
+                }
+            }else{
+                return localEntrada;
+            }
+        }while (pular);
     }
 
 
@@ -528,8 +577,8 @@ public class IMDB {
 
     static void imprimeListaAtores() {
         System.out.print("\n\n === LISTA ATORES === \n");
-        for (Ator item : listaAtores)
-            System.out.println(item.toString());
+        for (Ator ator : listaAtores)
+            System.out.println(ator.toString());
     }
 
     static void imprimeListaDiretores() {
@@ -643,5 +692,3 @@ public class IMDB {
     }
 
 }
-
-
