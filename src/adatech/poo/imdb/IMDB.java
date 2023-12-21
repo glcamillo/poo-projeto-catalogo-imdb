@@ -73,8 +73,8 @@ public class IMDB {
         System.out.println("    de atores, diretores e filmes para fins de popular bases de dados.");
         System.out.println(" -------------------------------------------------------------------------");
         System.out.println(" Observações importantes:");
-        System.out.println("   a) Um mesmo nome pode se referir a diferentes filmes (sistema");
-        System.out.println("     fará inclusão independente de demais dados serem iguais ou diferentes.");
+        System.out.println("   a) Um mesmo nome pode se referir a diferentes FILMES. O sistema fará");
+        System.out.println("     inclusão independente de demais dados serem iguais.");
         System.out.println("   b) para sair de qualquer entrada de dados deve-se digitar SAIR.");
         System.out.println(" -------------------------------------------------------------------------");
         // Scanner leitor = new Scanner(System.in);
@@ -292,7 +292,7 @@ public class IMDB {
                 System.out.print("\n--- Menu de DIRETOR para Filme");
                 System.out.printf("\n -1   Para INCLUIR novo DIRETOR");
                 System.out.printf("\n  0   Para SAIR (para filme sem diretor)");
-                System.out.println("E lista de escolha DIRETORES já no sistema:");
+                System.out.print("\nE lista de escolha DIRETORES já no sistema:");
                 int i = 1;
                 for (Diretor item : listaDiretores) {
                     System.out.printf("\n  %d - %s", i++, item.getNome());
@@ -301,15 +301,15 @@ public class IMDB {
                 boolean continuarDiretor = true;
                 do {
                     System.out.print("\nQual número para diretor? Ou (0) para terminar; ou (-1) para incluir novo diretor:");
-                    String itemDiretor = leitor.nextLine();
-                    try {
+                    itemDiretorInt = leitor.nextInt();
+                    /*try {
                         itemDiretorInt = Integer.parseInt(itemDiretor);
                     } catch (NumberFormatException e) {
                         System.err.println("Formato número errado. Saindo");
                     } finally {
                         itemDiretorInt = 0;
                         continuarDiretor = false;
-                    }
+                    }*/
                     if (itemDiretorInt == 0)
                         continuarDiretor = false;
                     else if (itemDiretorInt < -1 || itemDiretorInt > i) {
@@ -331,7 +331,7 @@ public class IMDB {
                 System.out.print("\n--- Menu de ATORES para Filme");
                 System.out.printf("\n -1   Para INCLUIR novo ATOR");
                 System.out.printf("\n  0   Para SAIR da inclusão do elenco");
-                System.out.println("E lista de escolha ATORES já no sistema:");
+                System.out.print("\nE lista de escolha ATORES já no sistema:");
                 int j = 1;
                 for (Ator item : listaAtores) {
                     System.out.printf("\n  %d - %s", j++, item.getNome());
@@ -341,15 +341,16 @@ public class IMDB {
                 boolean continuarAtor = true;
                 do {
                     System.out.print("\nQual número de ator? Ou (0) para terminar; ou (-1) para incluir novo ator:");
-                    String itemAtor = leitor.nextLine();
-                    try {
+                    // String itemAtor = leitor.nextLine();
+                    itemAtorInt = leitor.nextInt();
+/*                    try {
                         itemAtorInt = Integer.parseInt(itemAtor);
                     } catch (NumberFormatException e) {
                         System.err.println("Formato número errado. Saindo");
                     } finally {
                         itemAtorInt = 0;
                         continuarAtor = false;
-                    }
+                    }*/
                     if (itemAtorInt == 0)
                         continuarAtor = false;
                     else if (itemAtorInt < -1 || itemAtorInt > j) {
@@ -366,7 +367,10 @@ public class IMDB {
 
                 // Cria objeto Filme com os dados do usuário
                 // TODO incluir try-catch
-                listaFilmes.add(new Filme(filmeNome, filmeDescricao, filmeGenero, filmeDataLancamento, filmeOrcamento, diretor, elenco));
+                Filme novoFilme = new Filme(filmeNome, filmeDescricao, filmeGenero, filmeDataLancamento, filmeOrcamento, diretor, elenco);
+                listaFilmes.add(novoFilme);
+                System.out.print("\n Filme incluído com sucesso:\n");
+                System.out.printf("%s", novoFilme.toString());
             }
         } while (repete);
     }
