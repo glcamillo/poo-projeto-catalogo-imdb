@@ -41,8 +41,12 @@ public class IMDB {
     private static ArrayList<Filme> listaFilmes = new ArrayList<>();
 
     // Array de string de tipos de gêneros aceitos
-    static final private String[] tiposGeneros = new String[]{"ACAO", "DRAMA", "SUSPENSE", "HUMOR", "COMEDIA_ROMANTICA", "GUERRA", "DOCUMENTARIO"};
+    static final private String[] tiposGeneros = new String[]{"ACAO", "DRAMA",
+            "SUSPENSE", "HUMOR", "COMEDIA_ROMANTICA", "GUERRA", "DOCUMENTARIO"};
 
+    // Declarado e inicializado de forma estática na classe. Objetivo: resolver
+    //   problemas de leitura.
+    private static final Scanner leitor = new Scanner(System.in);
 
     public static void main(String[] args) {
         System.out.println("Projeto inicial para um sistema de IMDB");
@@ -58,21 +62,22 @@ public class IMDB {
     // Método para tratar entrada de dados (menu principal)
     static void processaEntrada() {
 
-        System.out.println(" ---------------------------------------------------------");
-        System.out.println("                    Projeto IMDB                    ");
-        System.out.println(" Simula sistema de cadastro e pesquisa de filmes, atores ");
-        System.out.println("  e diretores. Menu para inclusão de ator, diretor e filmes.");
-        System.out.println(" Pesquisas por ");
-        System.out.println("    a) nome de ator e nome de diretor: também retornam participação em filmes.");
-        System.out.println("    b) nome de filme: pode retornar mais de um (vide obs a seguir).");
-        System.out.println(" Métodos para testar as classes e que também incluem de forma estática dados");
+        System.out.println(" -------------------------------------------------------------------------");
+        System.out.println("                         Projeto IMDB");
+        System.out.println(" Simula sistema de cadastro e pesquisa de filmes, atores e diretores.");
+        System.out.println(" O menu possui escolhas para: a) Inclusão de ator, diretor e filmes.");
+        System.out.println("   b) Pesquisas por ");
+        System.out.println("    - nome de ator e nome de diretor: também retornam participação em filmes.");
+        System.out.println("    - nome de filme: pode retornar mais de um (vide obs a seguir).");
+        System.out.println("   c) Métodos para: teste de classes e inicialiazação com dados estáticos iniciais");
         System.out.println("    de atores, diretores e filmes para fins de popular bases de dados.");
         System.out.println(" -------------------------------------------------------------------------");
-        System.out.println(" Obs importantes: a) um mesmo nome pode se referir a diferentes filmes (sistema");
+        System.out.println(" Observações importantes:");
+        System.out.println("   a) Um mesmo nome pode se referir a diferentes filmes (sistema");
         System.out.println("     fará inclusão independente de demais dados serem iguais ou diferentes.");
-        System.out.println("     b) para sair de qualquer entrada de dados deve-se digitar SAIR.");
-
-        Scanner leitor = new Scanner(System.in);
+        System.out.println("   b) para sair de qualquer entrada de dados deve-se digitar SAIR.");
+        System.out.println(" -------------------------------------------------------------------------");
+        // Scanner leitor = new Scanner(System.in);
         boolean continuar = true;
         do {
             System.out.printf("\n\n ======= Menu IMDB =======\n");
@@ -149,7 +154,7 @@ public class IMDB {
 
     static void processarEntradaAtor() {
         Ator ator = null;
-        Scanner leitor = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
         System.out.println(" === Entrada de ATORES (digitar SAIR para terminar) === ");
         boolean repete = true;
         do {
@@ -201,7 +206,7 @@ public class IMDB {
     }
     static void processarEntradaDiretor() {
         Diretor diretor = null;
-        Scanner leitor = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
         System.out.println(" === Entrada de DIRETORES (digitar SAIR para terminar) === ");
         boolean repete = true;
         do {
@@ -236,7 +241,7 @@ public class IMDB {
 
         String naturalidade = null;
         System.out.print("Qual local de nascimento do Diretor? ");
-        Scanner leitor = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
         naturalidade = leitor.nextLine();
 
         Diretor diretor = null;
@@ -254,13 +259,13 @@ public class IMDB {
         Filme filme = null;
         Diretor diretor = null;
 
-        Scanner leitor = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
 
         System.out.println(" === Entrada de FILMES (digitar SAIR para terminar) === ");
         boolean repete = true;
         do {
             System.out.print("Qual NOME de Filme? ");
-            String filmeNome = leitor.next();
+            String filmeNome = leitor.nextLine();
             if (filmeNome.equalsIgnoreCase("sair"))
                 repete = false;
             else {
@@ -281,56 +286,86 @@ public class IMDB {
                 System.out.print("Qual ORÇAMENTO do Filme? ");
                 filmeOrcamento = leitor.nextDouble();
 
+                // Leitura do Diretor: um único por Filme
                 diretor = null;
-                System.out.print("Qual o nome do DIRETOR do Filme? Escolha pelo número (-1 para INCLUIR NOVO):");
-                int i = 0;
+
+                System.out.print("\n--- Menu de DIRETOR para Filme");
+                System.out.printf("\n -1   Para INCLUIR novo DIRETOR");
+                System.out.printf("\n  0   Para SAIR (para filme sem diretor)");
+                System.out.println("E lista de escolha DIRETORES já no sistema:");
+                int i = 1;
                 for (Diretor item : listaDiretores) {
-                    System.out.printf("\n %d - %s", i++, item.getNome());
+                    System.out.printf("\n  %d - %s", i++, item.getNome());
                 }
+                int itemDiretorInt = 0;
                 boolean continuarDiretor = true;
                 do {
-                    System.out.print("\nQual número de diretor (-1 para incluir NOVO)? ");
-                    // String itemDiretor = leitor.nextLine();
-                    String itemDiretor = leitor.next();
-                    if (itemDiretor.equalsIgnoreCase("sair")) {
+                    System.out.print("\nQual número para diretor? Ou (0) para terminar; ou (-1) para incluir novo diretor:");
+                    String itemDiretor = leitor.nextLine();
+                    try {
+                        itemDiretorInt = Integer.parseInt(itemDiretor);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Formato número errado. Saindo");
+                    } finally {
+                        itemDiretorInt = 0;
                         continuarDiretor = false;
-                    } else if (Integer.parseInt(itemDiretor) < -1 || Integer.parseInt(itemDiretor) >= i) {
+                    }
+                    if (itemDiretorInt == 0)
+                        continuarDiretor = false;
+                    else if (itemDiretorInt < -1 || itemDiretorInt > i) {
                         System.out.println("Número inválido. Entre novamente ou SAIR.");
-                    } else if (Integer.parseInt(itemDiretor) == -1) {
+                    } else if (itemDiretorInt == -1) {
                         System.out.print("\nQual nome do Diretor a incluir? ");
-                        String novoNomeDiretor = leitor.next();
+                        String novoNomeDiretor = leitor.nextLine();
                         diretor = incluirDiretor(novoNomeDiretor);
                     } else {
-                        diretor = listaDiretores.get(Integer.parseInt(itemDiretor));
+                        // O array inicia com ZERO e o primeiro da lista é um
+                        diretor = listaDiretores.get(itemDiretorInt-1);
                         continuarDiretor = false;
                     }
                 } while (continuarDiretor);
 
+                // Leitura do Elenco do Filme: entrada de objetos Ator
                 ArrayList<Ator> elenco = new ArrayList<>();
                 Ator ator = null;
-                System.out.print("\nQuais ATORES participaram do Filme? Escolha pelo número (-1 para INCLUIR NOVO):");
-                int j = 0;
+                System.out.print("\n--- Menu de ATORES para Filme");
+                System.out.printf("\n -1   Para INCLUIR novo ATOR");
+                System.out.printf("\n  0   Para SAIR da inclusão do elenco");
+                System.out.println("E lista de escolha ATORES já no sistema:");
+                int j = 1;
                 for (Ator item : listaAtores) {
-                    System.out.printf("\n %d - %s", j++, item.getNome());
+                    System.out.printf("\n  %d - %s", j++, item.getNome());
                 }
+
+                int itemAtorInt = 0;
                 boolean continuarAtor = true;
                 do {
-                    System.out.print("\nQual número de ator (SAIR para terminar; -1 para incluir NOVO)? ");
-                    String itemAtor = leitor.next();
-                    if (itemAtor.equalsIgnoreCase("sair")) {
+                    System.out.print("\nQual número de ator? Ou (0) para terminar; ou (-1) para incluir novo ator:");
+                    String itemAtor = leitor.nextLine();
+                    try {
+                        itemAtorInt = Integer.parseInt(itemAtor);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Formato número errado. Saindo");
+                    } finally {
+                        itemAtorInt = 0;
                         continuarAtor = false;
-                    } else if (Integer.parseInt(itemAtor) < -1 || Integer.parseInt(itemAtor) >= j) {
+                    }
+                    if (itemAtorInt == 0)
+                        continuarAtor = false;
+                    else if (itemAtorInt < -1 || itemAtorInt > j) {
                         System.out.println("Número inválido. Entre novamente ou SAIR.");
-                    } else if (Integer.parseInt(itemAtor) == -1) {
-                        System.out.print("\nQual nome do Ator  incluir? ");
-                        String novoNomeAtor = leitor.next();
+                    } else if (itemAtorInt == -1) {
+                        System.out.print("\nQual nome do Ator incluir? ");
+                        String novoNomeAtor = leitor.nextLine();
                         ator = incluirAtor(novoNomeAtor);
                         elenco.add(ator);
-                    } else {
-                        elenco.add(listaAtores.get(Integer.parseInt(itemAtor)));
-                    }
+                    } else
+                        // O array inicia com ZERO e o primeiro da lista é um
+                        elenco.add(listaAtores.get(itemAtorInt - 1));
                 } while (continuarAtor);
 
+                // Cria objeto Filme com os dados do usuário
+                // TODO incluir try-catch
                 listaFilmes.add(new Filme(filmeNome, filmeDescricao, filmeGenero, filmeDataLancamento, filmeOrcamento, diretor, elenco));
             }
         } while (repete);
@@ -347,9 +382,10 @@ public class IMDB {
     }
 
     private static String processaEntradaGenero() {
-        Scanner leitor = new Scanner(System.in);
-        System.out.print("\nEscolha qual GÊNERO do filme:");
-        System.out.printf("\n%s\n", Arrays.toString(tiposGeneros));
+        // Scanner leitor = new Scanner(System.in);
+        System.out.println("Considere os seguintes gêneros de filme:");
+        System.out.printf("%s\n", Arrays.toString(tiposGeneros));
+        System.out.print("Escolha qual GÊNERO do filme:");
         String genero = leitor.nextLine();
         for (String item : tiposGeneros) {
             if (item.equalsIgnoreCase(genero))
@@ -362,7 +398,7 @@ public class IMDB {
         String dateFormat = "yyy-MM-dd";
         System.out.printf("Qual data (ano-mês-dia) de %s (formato numérico:yyyy-mm-dd)? ", mensagem);
         try {
-            Scanner leitor = new Scanner(System.in);
+            //Scanner leitor = new Scanner(System.in);
             String dataLidaEntrada = leitor.nextLine();
             // DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             return LocalDate.parse(dataLidaEntrada);
@@ -390,10 +426,10 @@ public class IMDB {
             String chave = "";
             boolean encontrou = false;
             boolean repete = true;
-            Scanner entrada = new Scanner(System.in);
+            // Scanner leitor = new Scanner(System.in);
             do {
                 System.out.println("Qual nome você deseja buscar?");
-                chave = entrada.nextLine();
+                chave = leitor.nextLine();
                 System.out.println("Nome buscado: " + chave);
                 for (Ator ator : listaAtores) {
                     if (ator.getNomeAtor().toLowerCase().contains(chave.toLowerCase())) {
@@ -423,10 +459,10 @@ public class IMDB {
         String chave = "";
         boolean encontrou = false;
         boolean repete = true;
-        Scanner entrada = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
         do {
             System.out.println("Qual nome você deseja buscar?");
-            chave = entrada.nextLine();
+            chave = leitor.nextLine();
             System.out.println("Nome buscado: " + chave);
             for (Diretor diretor : listaDiretores) {
                 if (diretor.getNomeDiretor().toLowerCase().contains(chave.toLowerCase())) {
@@ -447,7 +483,7 @@ public class IMDB {
 
 
     static void pesquisarFilmes() {
-        Scanner leitor = new Scanner(System.in);
+        // Scanner leitor = new Scanner(System.in);
         boolean repete = true, achou = false;
         do {
             System.out.print("Qual NOME do Filme a pesquisar? ");
