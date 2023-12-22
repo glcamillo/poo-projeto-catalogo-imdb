@@ -3,21 +3,15 @@ package adatech.poo.imdb;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-// Não é necessário, pois todas as classes estarão no mesmo pacote.
-// import adatech.poo.imdb.Diretor;
-
 public class Filme {
-        private String nomeFilme;
-        public String descricaoFilme;
-        String genero;
-        LocalDate dataLancamento;
+    private String nomeFilme;
+    public String descricaoFilme;
+    String genero;
+    LocalDate dataLancamento;
 
-        private double orcamento;
-//        String[] atores = new String[5];
-//        String diretor;
-        // @Gerson  start -------------------
-        ArrayList<Ator>  elenco = new ArrayList<>();
-        Diretor diretorFilme;
+    private double orcamento;
+    ArrayList<Ator>  elenco = new ArrayList<>();
+    Diretor diretorFilme;
     public Filme (){}
 
     public Filme (String nomeFilme,
@@ -38,31 +32,32 @@ public class Filme {
 
     @Override
     public String toString() {
+        ArrayList<String> elencoParaImpressao = new ArrayList<>();
+        for (Ator ator : elenco)
+            elencoParaImpressao.add(ator.getNomeAtor());
         return  "\nFilme: " +
                 "Nome: " + nomeFilme +
                 "\nDescricao: " + descricaoFilme +
-                "\nGenero: " + genero +
+                "\nGênero: " + genero +
                 ", Data de Lancamento: " + dataLancamento +
-                ", Orcamento: " + orcamento +
+                ", Orçamento: " + orcamento +
                 "\nDiretor: " + diretorFilme.getNomeDiretor() +
-                "\nElenco: \n" + elenco ;
-
+                "\nElenco: " + elencoParaImpressao.toString();
     }
 
-    // @Gerson --------------------finish
+    public String getNomeFilme() {
+        return this.nomeFilme;
+    }
 
-        public String getNomeFilme() {
-            return this.nomeFilme;
-        }
-        public LocalDate getDataLancamento() {
-            return this.dataLancamento;
-        }
-        public double getOrcamento() {
+    public LocalDate getDataLancamento() {
+        return this.dataLancamento;
+    }
+
+    public double getOrcamento() {
             return this.orcamento;
-        }
-        public String getDescricaoFilme () {
-            return this.descricaoFilme;
-        }
+    }
 
-
+    public String getDescricaoFilme () {
+        return this.descricaoFilme;
+    }
 }

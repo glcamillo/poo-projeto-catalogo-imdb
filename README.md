@@ -11,7 +11,7 @@
 
 <img src="./imagens/rolodefilme.png" alt="Rolo de filme">
 
-### DESCRIÇÃO DO PROJETO:
+### DESCRIÇÃO ORIGINAL DO PROJETO:
 Este projeto visa desenvolver um sistema que apresente um catálogo de filmes, similar ao Internet Movie Database (IMDb).
 
 
@@ -40,12 +40,32 @@ Implementar uma aplicação em que o usuário possa:
 
 ### Estrutura de Dados
 Cada classe (Ator, Diretor e Filme) será representada por um ArrayList de objetos criados dentro da classe *controller* IMDB. Então, tamanho será dinâmico.
-
+```jshelllanguage
+    private static ArrayList<Ator> listaAtores = new ArrayList<Ator>();
+    private static ArrayList<Diretor> listaDiretores = new ArrayList<>();
+    private static ArrayList<Filme> listaFilmes = new ArrayList<>();
+```
 O armazenamento de `nome de ator`, `nome de diretor` e `nome de filme` será conforme entrada do usuário, ou seja, o case da entrada será armazenado nas estruturas de dados. A **pesquisa** será sempre por ***letras minúsculas***.
+
+Gêneros de filmes deverão ser escolhidos conforme definição do projeto em:
+```jshelllanguage
+static final private String[] tiposGeneros = new String[]{"ACAO", "DRAMA",
+            "SUSPENSE", "HUMOR", "COMEDIA_ROMANTICA", "GUERRA", "DOCUMENTARIO"};
+```
 
 ### Considerações sobre alguns métodos
 
 As classes `Ator`, `Diretor` e `Filme` sobrescreverão o método `toString` para apresentar dados básicos dos objetos Ator, Diretor e Filme.
+
+Foram criados três métodos para teste das três classes concretas do projeto: Ator, Diretor e Filme cujas assinaturas são:
+```jshelllanguage
+    public static void testFilme() {    }
+    public static void testAtor() {    }
+    public static void testDiretor() {    }
+```
+Estes três métodos podem ser chamados pelos números ***11***, ***12*** e ***13*** do menu principal. Eles criarão objetos para popular os array lists de Ator, Diretor e Filme com dados estáticos para fins de teste. Logo, com essas chamadas, pode-se inicializar o sistema com dados inicias.
+
+Os diagramas de classes a seguir mostram a hierarquia além dos atributos e métodos definidos no projeto.
 
 ```mermaid
 classDiagram
@@ -102,6 +122,9 @@ classDiagram
     }
 ```
 
+**Observação Importante** A classe principal *controller* do projeto, a IMDB acabou crescendo em funcionalidades. O grupo tem ciência que funcionalidades específicas poderiam ser atribuídas a classes de operações de Ator, Diretor e Filme, por exemplo. Em virtude das restrições de tempo, esse requisito não foi implementado.
+
+
 # Alguns comandos básicos em GIT para este projeto
 
 Este projeto demanda trabalho colaborativo e a ferramenta usada foi o GIT através do diretório de projetos do GitHub. Então, foi criado um projeto inicial na conta glcamillo ([https://github.com/glcamillo](https://github.com/glcamillo) no GitHub e foram incluídos os seguintes colaaboradores:
@@ -154,13 +177,13 @@ f) O diretório local está sincronizado quanto às alterações. Agora é a hor
 
 g) **Mais importante ainda:** nesta fase do trabalho em que estamos trabalhando nos mesmos códigos, é importante trazer as alterações mais recentes da branch `main` para a nossa brainch local de trabalho `minha-branch-de-trabalho` (isso poderia também ser feito no GitHub). A sequência de comandos é a seguinte:
 
-`git checkout main` Indo pro branch da linha principal.
+`git checkout main` #  Indo pro branch da linha principal.
 
-`git pull` Sincronizando (trazendo as alterações) mais recentes do remoto `origin`.
+`git pull` #  Sincronizando (trazendo as alterações) mais recentes do remoto `origin`.
 
-`git chechout minha-branch-de-trabalho` Indo pra branch local.
+`git chechout minha-branch-de-trabalho`  #  Indo pra branch local.
 
-`git pull` Sincronizando a branch local.
+`git pull`  #  Sincronizando a branch local.
 
 E, agora, o comando que vai atualizar a branch `minha-branch-de-trabalho` com as alterações da linha `main`.
 
@@ -168,3 +191,10 @@ E, agora, o comando que vai atualizar a branch `minha-branch-de-trabalho` com as
 
 E, depois, voltar para a branch de trabalho.
 
+h) Para o caso de alterações indevidas ou incluídas por engano numa determinada branch, como por exemplo, na branch `main`. Os dois comandos seguintes revertem as alterações nos arquivos (perde-se modificações) e volta-se o estado para a versão mais recente da branch `main` disponível no remoto:
+
+`git checkout main`
+
+`git fetch`        # Buscará a versão mais recente no remoto
+
+`git reset --hard origin/main`   # Fará com que a representação da branch `main` local esteja sincronizada com a branch remota.

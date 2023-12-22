@@ -33,14 +33,6 @@ public class Ator extends Pessoa {
     }
 
     @Override
-//    public String toString() {
-//        return "Ator{" +
-//                "Ator em Filme?" + atorEmFilme +
-//                ", Nome='" + nome + '\'' +
-//                ", Dt Nascimento=" + dataNascimento +
-//                ", Naturalidade='" + naturalidade + '\'' +
-//                '}';
-//    }
     public String toString() {
         return String.format("Nome: %s\nData de Nascimento: %s\nNaturalidade: %s\nAtor em Filme? %b\n", nome, dataNascimento, naturalidade, atorEmFilme);
     }
