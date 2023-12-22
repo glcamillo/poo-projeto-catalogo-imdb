@@ -30,11 +30,6 @@ public class Diretor extends Pessoa{
 
     @Override
     public String toString() {
-        return "Diretor{" +
-                "Foi diretor em Filme? " + diretorEmFilme +
-                ", Nome='" + nome + '\'' +
-                ", Dt Nasc=" + dataNascimento +
-                ", Naturalidade='" + naturalidade + '\'' +
-                '}';
+        return String.format("Nome: %s\nData de Nascimento: %s\nNaturalidade: %s\nDiretor em Filme? %b\n", nome, dataNascimento, naturalidade, diretorEmFilme);
     }
 }

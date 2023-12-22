@@ -108,12 +108,15 @@ public class IMDB {
             switch (linhaOpcao.toLowerCase()) {
                 case "1":
                     processarEntradaAtor();
+                    continua();
                     break;
                 case "2":
                     processarEntradaDiretor();
+                    continua();
                     break;
                 case "3":
                     processarEntradaFilme();
+                    continua();
                     break;
                 case "4":
                     pesquisarAtores();
@@ -126,26 +129,33 @@ public class IMDB {
                     break;
                 case "7":
                     imprimirListaAtores();
+                    continua();
                     break;
                 case "8":
                     imprimirListaDiretores();
+                    continua();
                     break;
                 case "9":
                     imprimirListaFilmes();
+                    continua();
                     break;
                 case "10":
                     imprimirListaAtores();
                     imprimirListaDiretores();
                     imprimirListaFilmes();
+                    continua();
                     break;
                 case "11":
                     testarAtor();
+                    continua();
                     break;
                 case "12":
                     testarDiretor();
+                    continua();
                     break;
                 case "13":
                     testarFilme();
+                    continua();
                     break;
                 case "s":
                     System.exit(0);
@@ -169,7 +179,6 @@ public class IMDB {
                 ator = pesquisarAtor(linhaNomeAtor);
                 if (ator == null) {
                     System.out.printf("\nAtor/Atriz de nome %s não existe. Será incluído. Incluir demais atributos:\n", linhaNomeAtor);
-
                     ator = incluirAtor(linhaNomeAtor);
                     if (ator == null) {
                         System.err.println("Objeto ator não criado");
@@ -242,6 +251,10 @@ public class IMDB {
                         System.out.println("Cadastro realizado!!!");
                         System.out.printf("\n%s\n", diretor.toString());
                     }
+                    repete = false;
+                } else if (diretor != null) {
+                    System.out.printf("\nDiretor já está cadastrado!");
+                    repete = false;
                 }
             }
         } while (repete);
@@ -252,18 +265,18 @@ public class IMDB {
         -incluirDiretor(nomeDiretor: String) : Diretor
      */
     private static Diretor incluirDiretor(String nomeDiretor) {
+        Diretor diretor = null;
         LocalDate dataNascimento= null;
+        String naturalidade = null;
         try {
             dataNascimento = lerData("nascimento");
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-
-        String naturalidade = null;
-        System.out.print("Qual local de nascimento do Diretor? ");
-        naturalidade = leitor.nextLine();
-
-        Diretor diretor = null;
+        try{
+            naturalidade = lerLocal("nascimento");
+        }catch(ParseException e){
+        }
         try {
             diretor = new Diretor(nomeDiretor, dataNascimento, naturalidade, false);
             listaDiretores.add(diretor);
@@ -559,19 +572,20 @@ public class IMDB {
 
     static void imprimirListaAtores() {
         System.out.print("\n\n === LISTA ATORES === \n");
-        for (Ator ator : listaAtores)
+        for (Ator ator : listaAtores) {
             System.out.println(ator.toString());
+        }
     }
 
     static void imprimirListaDiretores() {
         System.out.print("\n\n === LISTA DIRETORES === \n");
-        for (Diretor item : listaDiretores)
+        for (Diretor item : listaDiretores) {
             System.out.println(item.toString());
+        }
     }
 
     static void imprimirListaFilmes() {
         System.out.print("\n\n === LISTA FILMES === \n");
-
         for (Filme item : listaFilmes) {
             System.out.println(item.toString());
         }
@@ -675,6 +689,13 @@ public class IMDB {
         for (Diretor item : listaDiretores) {
             System.out.println(item.toString());
         }
+    }
+    static void continua() {
+        String chave = "";
+        do{
+            System.out.printf("Tecle enter para continuar\n");
+            chave = leitor.nextLine();
+        }while (!chave.isEmpty());
     }
 
 }
