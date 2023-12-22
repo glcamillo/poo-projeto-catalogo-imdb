@@ -38,6 +38,7 @@ import java.util.Scanner;
 
 public class IMDB {
 
+    // Estrutura de dados dos objetos do projeto
     private static ArrayList<Ator> listaAtores = new ArrayList<Ator>();
     private static ArrayList<Diretor> listaDiretores = new ArrayList<>();
     private static ArrayList<Filme> listaFilmes = new ArrayList<>();
@@ -77,9 +78,11 @@ public class IMDB {
         System.out.println(" Observações importantes:");
         System.out.println("   a) Um mesmo nome pode se referir a diferentes FILMES. O sistema fará");
         System.out.println("     inclusão independente de demais dados serem iguais.");
-        System.out.println("   b) para sair de qualquer entrada de dados deve-se digitar SAIR.");
+        System.out.println("   b) Para sair de qualquer entrada de dados deve-se digitar SAIR.");
+        System.out.println("   c) Para teste inicial pode-se iniciar pelas seleções 11, 12 e 13 que farão\n" +
+                "         inicialização de dados estáticos para testes.");
         System.out.println(" -------------------------------------------------------------------------");
-        // Scanner leitor = new Scanner(System.in);
+
         boolean continuar = true;
         do {
             System.out.printf("\n\n ======= Menu IMDB =======\n");
@@ -156,8 +159,7 @@ public class IMDB {
 
     static void processarEntradaAtor() {
         Ator ator = null;
-        // Scanner leitor = new Scanner(System.in);
-        System.out.println(" === Entrada de ATORES (digitar SAIR para terminar) === ");
+        System.out.print("\n === Entrada de ATORES (digitar SAIR para terminar) === \n");
         boolean repete = true;
         do {
             System.out.print("Qual nome do Ator / Atriz? ");
@@ -167,11 +169,14 @@ public class IMDB {
             else {
                 ator = pesquisarAtor(linhaNomeAtor);
                 if (ator == null) {
-                    System.out.printf("\nAtor/Atriz de nome %s não existe. Será incluído.\n", linhaNomeAtor);
+                    System.out.printf("\nAtor/Atriz de nome %s não existe. Será incluído. Incluir demais atributos:\n", linhaNomeAtor);
 
                     ator = incluirAtor(linhaNomeAtor);
                     if (ator == null) {
                         System.err.println("Objeto ator não criado");
+                    } else {
+                        System.out.println("Cadastro realizado!!!");
+                        System.out.printf("\n%s\n", ator.toString());
                     }
                     repete = false;
                 } else if (ator != null) {
@@ -193,7 +198,6 @@ public class IMDB {
         try {
             nascimento = lerData("nascimento");
         } catch (java.text.ParseException e) {
-            //System.out.println("Formato de data inválido.");
         }
         try {
             naturalidade = lerLocal("nascimento");
@@ -206,7 +210,6 @@ public class IMDB {
         } catch (RuntimeException e) {
             System.err.println("Erro na criação objeto Ator");
         }
-        System.out.println("Cadastro realizado!!!");
         return ator;
     }
     static Ator pesquisarAtor(String nomeAtor) {
@@ -222,8 +225,7 @@ public class IMDB {
     }
     static void processarEntradaDiretor() {
         Diretor diretor = null;
-        // Scanner leitor = new Scanner(System.in);
-        System.out.println(" === Entrada de DIRETORES (digitar SAIR para terminar) === ");
+        System.out.print("\n === Entrada de DIRETORES (digitar SAIR para terminar) === \n");
         boolean repete = true;
         do {
             System.out.print("\nQual nome de Diretor? ");
@@ -233,10 +235,13 @@ public class IMDB {
             else {
                 diretor = pesquisarDiretor(linhaNomeDiretor);
                 if (diretor == null) {
-                    System.out.printf("\nDiretor de nome %s não existe. Será incluído. Responda com demais atributos:\n", linhaNomeDiretor);
+                    System.out.printf("\nDiretor de nome %s não existe. Será incluído. Incluir demais atributos:\n", linhaNomeDiretor);
                     diretor = incluirDiretor(linhaNomeDiretor);
                     if (diretor == null) {
                         System.err.println("Objeto diretor não criado");
+                    } else {
+                        System.out.println("Cadastro realizado!!!");
+                        System.out.printf("\n%s\n", diretor.toString());
                     }
                 }
             }
@@ -257,7 +262,6 @@ public class IMDB {
 
         String naturalidade = null;
         System.out.print("Qual local de nascimento do Diretor? ");
-        // Scanner leitor = new Scanner(System.in);
         naturalidade = leitor.nextLine();
 
         Diretor diretor = null;
@@ -276,7 +280,7 @@ public class IMDB {
         Diretor diretor = null;
         // Scanner leitor = new Scanner(System.in);
 
-        System.out.println(" === Entrada de FILMES (digitar SAIR para terminar) === ");
+        System.out.print("\n === Entrada de FILMES (digitar SAIR para terminar) === \n");
         boolean repete = true;
         String filmeNome = new String();
         System.out.println("\nEntre com o nome do Filme: ");
@@ -316,14 +320,6 @@ public class IMDB {
                     }
                     System.out.print("\nEntre com o número do diretor: Ou (0) para terminar; ou (-1) para incluir novo diretor: ");
                     itemDiretorInt = leitor.nextInt();
-                    /*try {
-                        itemDiretorInt = Integer.parseInt(itemDiretor);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Formato número errado. Saindo");
-                    } finally {
-                        itemDiretorInt = 0;
-                        continuarDiretor = false;
-                    }*/
                     if (itemDiretorInt == 0)
                         continuarDiretor = false;
                     else if (itemDiretorInt < -1 || itemDiretorInt > i) {
@@ -354,19 +350,9 @@ public class IMDB {
                     for (Ator item : listaAtores) {
                         System.out.printf("\n  %d - %s", j++, item.getNome());
                     }
-
                     int itemAtorInt = 0;
                     System.out.print("\nQual número do ator / atriz ? Ou (0) para terminar; ou (-1) para incluir novo ator: ");
-                    // String itemAtor = leitor.nextLine();
                     itemAtorInt = leitor.nextInt();
-/*                    try {
-                        itemAtorInt = Integer.parseInt(itemAtor);
-                    } catch (NumberFormatException e) {
-                        System.err.println("Formato número errado. Saindo");
-                    } finally {
-                        itemAtorInt = 0;
-                        continuarAtor = false;
-                    }*/
                     if (itemAtorInt == 0)
                         continuarAtor = false;
                     else if (itemAtorInt < -1 || itemAtorInt > j) {
@@ -388,25 +374,16 @@ public class IMDB {
                 listaFilmes.add(novoFilme);
                 System.out.print("\n Filme incluído com sucesso:\n");
                 System.out.printf("%s", novoFilme.toString());
-                diretor.setDiretorEmFilme(true);
-                for (Ator item: elenco) {
-                    item.setAtorEmFilme(true);
-                }
+                if (diretor != null)
+                    diretor.setDiretorEmFilme(true);
+                if ( ! elenco.isEmpty())
+                    for (Ator item: elenco)
+                        item.setAtorEmFilme(true);
             }
             System.out.println("\nEntre com o nome do filme ou 'sair' para sair: ");
             filmeNome = leitor.nextLine();
             filmeNome = leitor.nextLine();
         }
-    }
-
-    // ===========  Método Privado INCLUSÃO Filme ===========
-    /* Se inclusão bem sucedida, retorna referência ao objeto criado;
-           caso contrário, null.
-        -incluirFilme(nomeFilme : String) : Filme
-     */
-    private static Filme incluirFilme(String nomeFilme) {
-        Filme filme = null;
-        return filme;
     }
 
     private static String processaEntradaGenero() {
@@ -428,12 +405,9 @@ public class IMDB {
         System.out.printf("Qual data (ano-mês-dia) de %s (formato numérico:yyyy-mm-dd)? ", mensagem);
         do {
             try {
-                //Scanner leitor = new Scanner(System.in);
                 String dataLidaEntrada = leitor.nextLine();
-                // DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 return LocalDate.parse(dataLidaEntrada);
             } catch (Exception e) {
-                //throw new RuntimeException(e);
                 System.out.println("Formato de data inválido.");
                 System.out.println("Insira novamente ou pule(Enter):");
                 String chave = leitor.nextLine();
@@ -447,9 +421,8 @@ public class IMDB {
         }while (pular);
     }
     public static String lerLocal(String mensagem) throws ParseException {
-        //String dateFormat = "yyy-MM-dd";
         boolean pular = false;
-        System.out.printf("Qual local de %s (Cidade)? \n", mensagem);
+        System.out.printf("Qual local de %s (Cidade)? ", mensagem);
         do {
             String localEntrada = leitor.nextLine();
             if(localEntrada.isEmpty()) {
@@ -479,10 +452,6 @@ public class IMDB {
       +pesquisarDiretor() : void
       +pesquisarFilme() : void
      */
-    static void imprimirAtores(){
-
-    }
-
     static void pesquisarAtores() {
         String chave = "";
         boolean encontrou = false;
@@ -659,9 +628,6 @@ public class IMDB {
         }
     }
 
-    public static void testPessoa() {
-        ArrayList<Diretor> diretores = new ArrayList<>();
-    }
 
     public static void testAtor() {
         listaAtores.add(new Ator("Deyse", LocalDate.parse("1968-02-27"),
