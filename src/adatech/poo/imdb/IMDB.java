@@ -1,9 +1,7 @@
 package adatech.poo.imdb;
 
 import java.text.ParseException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -53,7 +51,7 @@ public class IMDB {
 
     public static void main(String[] args) {
         System.out.println("Projeto inicial para um sistema de IMDB");
-        processaEntrada();
+        processarEntrada();
     }
 
     // ===========  Métodos Públicos para PROCESSAR ENTRADAS  ===========
@@ -63,7 +61,7 @@ public class IMDB {
             +processarEntradaFilme() : void
      */
     // Método para tratar entrada de dados (menu principal)
-    static void processaEntrada() {
+    static void processarEntrada() {
 
         System.out.println(" -------------------------------------------------------------------------");
         System.out.println("                         Projeto IMDB");
@@ -114,7 +112,7 @@ public class IMDB {
                     processarEntradaDiretor();
                     break;
                 case "3":
-                    processaEntradaFilme();
+                    processarEntradaFilme();
                     break;
                 case "4":
                     pesquisarAtores();
@@ -126,27 +124,27 @@ public class IMDB {
                     pesquisarFilmes();
                     break;
                 case "7":
-                    imprimeListaAtores();
+                    imprimirListaAtores();
                     break;
                 case "8":
-                    imprimeListaDiretores();
+                    imprimirListaDiretores();
                     break;
                 case "9":
-                    imprimeListaFilmes();
+                    imprimirListaFilmes();
                     break;
                 case "10":
-                    imprimeListaAtores();
-                    imprimeListaDiretores();
-                    imprimeListaFilmes();
+                    imprimirListaAtores();
+                    imprimirListaDiretores();
+                    imprimirListaFilmes();
                     break;
                 case "11":
-                    testAtor();
+                    testarAtor();
                     break;
                 case "12":
-                    testDiretor();
+                    testarDiretor();
                     break;
                 case "13":
-                    testFilme();
+                    testarFilme();
                     break;
                 case "s":
                     System.exit(0);
@@ -191,7 +189,7 @@ public class IMDB {
            caso contrário, null.
         -incluirAtor(nomeAtor : String) : Ator
      */
-    static Ator incluirAtor(String nomeAtor) {
+    private static Ator incluirAtor(String nomeAtor) {
         Ator ator = null;
         LocalDate nascimento = null;
         String naturalidade = null;
@@ -275,10 +273,14 @@ public class IMDB {
     }
 
 
-    static void processaEntradaFilme() {
+    /* Método para processar entrada do usuário para FILME.  Serão solicitadas
+        diversas informações para compor os atributos de um Filme. Ao final
+        será o objeto Filme com os atributos. Caso algum atribute falte ou
+        dê erro na entrada, o objeto será criado com valor contendo null.
+     */
+    static void processarEntradaFilme() {
         Filme filme = null;
         Diretor diretor = null;
-        // Scanner leitor = new Scanner(System.in);
 
         System.out.print("\n === Entrada de FILMES (digitar SAIR para terminar) === \n");
         boolean repete = true;
@@ -293,13 +295,17 @@ public class IMDB {
                 // Aqui, diferente de Ator e Diretor, vários filmes podem ter o mesmo nome
                 System.out.println("Entre com uma descrição do Filme: ");
                 String filmeDescricao = leitor.nextLine();
-                String filmeGenero = processaEntradaGenero();
+                String filmeGenero = processarEntradaGenero();
+
+                // Leitura da Data de Lançamento
                 LocalDate filmeDataLancamento = null;
                 try {
                     filmeDataLancamento = lerData("data de lançamento");
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
+
+                // Leitura do Orçamento
                 Double filmeOrcamento = 1.0;
                 System.out.print("Qual ORÇAMENTO do Filme? ");
                 filmeOrcamento = leitor.nextDouble();
@@ -362,7 +368,6 @@ public class IMDB {
                         String novoNomeAtor = leitor.nextLine();
                         novoNomeAtor = leitor.nextLine();
                         ator = incluirAtor(novoNomeAtor);
-//                        elenco.add(ator);
                     } else
                         // O array inicia com ZERO e o primeiro da lista é um
                         elenco.add(listaAtores.get(itemAtorInt - 1));
@@ -386,7 +391,7 @@ public class IMDB {
         }
     }
 
-    private static String processaEntradaGenero() {
+    private static String processarEntradaGenero() {
         // Scanner leitor = new Scanner(System.in);
         System.out.println("Considere os seguintes gêneros de filme: ");
         System.out.printf("%s\n", Arrays.toString(tiposGeneros));
@@ -399,7 +404,7 @@ public class IMDB {
         return null;
     }
 
-    public static LocalDate lerData(String mensagem) throws ParseException {
+    private static LocalDate lerData(String mensagem) throws ParseException {
         String dateFormat = "yyy-MM-dd";
         boolean pular = false;
         System.out.printf("Qual data (ano-mês-dia) de %s (formato numérico:yyyy-mm-dd)? ", mensagem);
@@ -420,7 +425,7 @@ public class IMDB {
             }
         }while (pular);
     }
-    public static String lerLocal(String mensagem) throws ParseException {
+    private static String lerLocal(String mensagem) throws ParseException {
         boolean pular = false;
         System.out.printf("Qual local de %s (Cidade)? ", mensagem);
         do {
@@ -538,7 +543,7 @@ public class IMDB {
                         System.out.println("Nome Filme: " + item.getNomeFilme());
                         System.out.println("Ano de Lançamento: " + item.getDataLancamento());
                         System.out.println("Descrição: " + item.getDescricaoFilme());
-                        System.out.println("Gênero: " + item.genero);
+                        System.out.println("Gênero: " + item.getGenero());
                         System.out.println("Diretor: " + item.diretorFilme.getNomeDiretor());
                         System.out.print("Atores principais: ");
                         for (Ator ator : item.elenco) {
@@ -553,19 +558,19 @@ public class IMDB {
         } while (repete);
     }
 
-    static void imprimeListaAtores() {
+    static void imprimirListaAtores() {
         System.out.print("\n\n === LISTA ATORES === \n");
         for (Ator ator : listaAtores)
             System.out.println(ator.toString());
     }
 
-    static void imprimeListaDiretores() {
+    static void imprimirListaDiretores() {
         System.out.print("\n\n === LISTA DIRETORES === \n");
         for (Diretor item : listaDiretores)
             System.out.println(item.toString());
     }
 
-    static void imprimeListaFilmes() {
+    static void imprimirListaFilmes() {
         System.out.print("\n\n === LISTA FILMES === \n");
 
         for (Filme item : listaFilmes) {
@@ -576,7 +581,7 @@ public class IMDB {
 
     // ==== Métodos Públicos para TESTES INTERNOS e inclusão de dados estáticos   ===========
 
-    public static void testFilme() {
+    public static void testarFilme() {
         Diretor diretorFilme = new Diretor("Clint Eastwood",true);
         ArrayList<Ator> elenco = new ArrayList();
         for (Ator item : listaAtores) {
@@ -629,7 +634,7 @@ public class IMDB {
     }
 
 
-    public static void testAtor() {
+    public static void testarAtor() {
         listaAtores.add(new Ator("Deyse", LocalDate.parse("1968-02-27"),
                 "Rio de Janeiro",
                 false));
@@ -661,7 +666,7 @@ public class IMDB {
        Todas as alterações devem ser incluídas aqui nesta
        fase do projeto.
     */
-    public static void testDiretor() {
+    public static void testarDiretor() {
         System.out.print("\n ===  Testa classe Diretor: criação objetos e impressão  ====\n");
         listaDiretores.add(new Diretor("Antoine Fuqua", false));
         listaDiretores.add(new Diretor("Elliott Lester", false));
