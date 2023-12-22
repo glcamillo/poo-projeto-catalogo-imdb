@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class Filme {
     private String nomeFilme;
-    public String descricaoFilme;
-    String genero;
-    LocalDate dataLancamento;
+    private String descricaoFilme;
+    private String genero;
+    private LocalDate dataLancamento;
 
     private double orcamento;
     ArrayList<Ator>  elenco = new ArrayList<>();
     Diretor diretorFilme;
+
+    // Construtores para Filme
     public Filme (){}
 
     public Filme (String nomeFilme,
@@ -30,6 +32,7 @@ public class Filme {
         this.diretorFilme = diretorFilme;
     }
 
+    // Método sobrescrito para impressão do objeto Filme
     @Override
     public String toString() {
         ArrayList<String> elencoParaImpressao = new ArrayList<>();
@@ -59,5 +62,9 @@ public class Filme {
 
     public String getDescricaoFilme () {
         return this.descricaoFilme;
+    }
+
+    public String getGenero() {
+        return genero;
     }
 }

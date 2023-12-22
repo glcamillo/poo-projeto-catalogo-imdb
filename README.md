@@ -71,37 +71,55 @@ Os diagramas de classes a seguir mostram a hierarquia além dos atributos e mét
 classDiagram
     Pessoa <|-- Diretor
     Pessoa <|-- Ator
-    Pessoa : +String nomeCompleto
-    Pessoa : -DateTime dataNascimento
-    Pessoa : -String sexo
-    Pessoa : -String nacionalidade
-    Pessoa: +obtemDataNascimento()
-    Pessoa: +obtemSexto()
-    Pessoa: +obtemNacionalidade()
+    class Pessoa {
+        -String nome
+        -LocalDate dataNascimento
+        -String naturalidade
+        +Pessoa()
+        +Pessoa(String nome)
+        +Pessoa(String nome, LocalDate dataNascimento)
+        +Pessoa(String nome, LocalDate dataNascimento, String naturalidade)
+        +String getNome() 
+        +LocalDate getDataNascimento()
+        +String getNaturalidade()
+        +String toString()
+    }
     class Diretor{
-      +String nomeDiretor
-      +String toString()
+      -boolean diretorEmFilme
+      +Diretor(String)
+      +Diretor(String,boolean)
+      +Diretor(String,LocalDate,boolean)
+      +Diretor(String,LocalDate,String,boolean)
       +String getNomeDiretor()
-      +Diretor(String nomeDiretor)
+      +setDiretorEmFilme(boolean)
+      +String toString()
     }
     class Ator{
-      -int (static) numeroParticipacaoFilmes
-      -Filme[] participacaoFilmes
-      Ator(String nomeCompleto, DateTime nascimento, String sexo, Filme filme)
-      +obtemParticipacaoFilmes()
+      -boolean atorEmFilme
+      +Ator()
+      +Ator(String,boolean)
+      +Ator(String,LocalDate,boolean)
+      +Ator(String,LocalDate,String,boolean)
+      +String getNomeAtor()
+      +setAtorEmFilme(boolean)
+      +String toString()
     }
     class Filme{
-      +String nomeFilme
+      -String nomeFilme
+      -String descricaoFilme
       -String genero
-      -DateTime dataLancamento
-      -ArrayList<Ator> elenco
-      -Diretor diretor
-      Filme(String nomeFilme, String genero, DateTime datalanc,
-            Diretor diretor,
-            ArrayList<Ator>)
-      +obtemGenero()
-      +obtemDataLancamento()
-      +obtemAtores()
+      -LocalDate dataLancamento
+      -double orcamento
+      +ArrayList<Ator> elenco
+      +Diretor diretor
+      +Filme ()
+      +Filme (String,String,String,LocalDate,double,Diretor,ArrayList<Ator>)
+      +getNomeFilme()
+      +getDataLancamento()
+      +getOrcamento()
+      +getDescricaoFilme()
+      +getGenero()
+      +String toString()
     }
     class IMDB{
       +ArrayList<Ator> listaAtores
@@ -115,10 +133,21 @@ classDiagram
       +processarEntradaDiretor()
       -Diretor incluirDiretor(String nomeDiretor)
       +processarEntradaFilme()
-      -Filme incluirFilme(String nomeFilme)
+      -String processarEntradaGenero()
+      -LocalDate lerData(String mensagem) 
+      -String lerLocal(String mensagem)
+      +pesquisarAtores()
+      +pesquisarDiretores()
+      +pesquisarFilmes()
       +Ator pesquisarAtor(String nomeAtor)
       +Diretor pesquisarDiretor(String nomeDiretor)
       +Filme pesquisarFilme(String nomeFilme)
+      +imprimirListaAtores()
+      +imprimirListaDiretores()
+      +imprimirListaFilmes()
+      +testarFilme()
+      +testarAtor()
+      +testarDiretor()
     }
 ```
 
@@ -147,7 +176,7 @@ b) Os próximos comandos são opcionais, apenas para "conhecer" melhor o que est
 
 `git status`
 
-`git log` Teclar 'q' para sair
+`git log`  # Teclar 'q' para sair
 
 `git branch` ou `git branch -a` ou `git branch -r`
 
@@ -161,7 +190,7 @@ Ou, se ***ainda não tiver criado sua branch*** então deve ser executado o segu
 
 d) Depois de codificados/alterados os arquivos, deve-se adicionar os mesmos na **Staging Area (Index)** que faz com que o git fique cientificado dessas alterações.
 
-`git add meu-arquivo.java` ou `git add .` Aqui adiciona todas as alterações do diretório corrente.
+`git add meu-arquivo.java` ou `git add .` # Aqui adiciona todas as alterações do diretório corrente.
 
 e) Da área de **Index** para o seu repositório local (**repository**):
 
@@ -169,7 +198,7 @@ e) Da área de **Index** para o seu repositório local (**repository**):
 
 f) O diretório local está sincronizado quanto às alterações. Agora é a hora de levar essas alterações para o diretório remoto do projeto no GitHub.
 
-`git push` Pode não funcionar, então, um comando mais específico seria:
+`git push` # Pode não funcionar, então, um comando mais específico seria:
 
 `git push -u origin minha-branch-de-trabalho`  (`-u`é  sinônimo para `--set-upstream` e **origin** é o nome do remoto)
 
