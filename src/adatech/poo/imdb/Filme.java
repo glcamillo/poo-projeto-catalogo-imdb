@@ -17,11 +17,11 @@ public class Filme {
     public Filme (){}
 
     public Filme (String nomeFilme,
-                 String descricaoFilme,
-                 String genero,
-                 LocalDate dataLancamento,
-                 double orcamento, Diretor diretorFilme,
-                 ArrayList<Ator> elenco)
+                  String descricaoFilme,
+                  String genero,
+                  LocalDate dataLancamento,
+                  double orcamento, Diretor diretorFilme,
+                  ArrayList<Ator> elenco)
     {
         this.nomeFilme = nomeFilme;
         this.descricaoFilme = descricaoFilme;
@@ -57,7 +57,7 @@ public class Filme {
     }
 
     public double getOrcamento() {
-            return this.orcamento;
+        return this.orcamento;
     }
 
     public String getDescricaoFilme () {
@@ -67,4 +67,8 @@ public class Filme {
     public String getGenero() {
         return genero;
     }
+
+    public ArrayList<Ator> getElenco() {return elenco;}
+
+    public Diretor getDiretor () {return diretorFilme;}
 }
