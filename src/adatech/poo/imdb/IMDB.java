@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -129,11 +130,11 @@ public class IMDB {
                     break;
                 case "7":
                     imprimirListaAtores();
-                    continua();
+                    subterfugioAtor(listaAtores,listaFilmes);
                     break;
                 case "8":
                     imprimirListaDiretores();
-                    continua();
+                    subterfugioDiretor(listaDiretores,listaFilmes);
                     break;
                 case "9":
                     imprimirListaFilmes();
@@ -302,7 +303,7 @@ public class IMDB {
         System.out.print("\nEntre com o nome do Filme: ");
         filmeNome = leitor.nextLine();
         while (repete) {
-            if (filmeNome.equalsIgnoreCase("sair")) {
+            if (filmeNome.equalsIgnoreCase("Sair")) {
                 repete = false;
                 break;
             } else {
@@ -321,70 +322,88 @@ public class IMDB {
 
                 // Leitura do Orçamento
                 Double filmeOrcamento = 1.0;
-                System.out.print("Qual ORÇAMENTO do Filme? ");
-                filmeOrcamento = leitor.nextDouble();
+                try {
+                    System.out.print("Qual ORÇAMENTO do Filme? ");
+                    filmeOrcamento = leitor.nextDouble();
+                }catch(NumberFormatException e){
+                    System.out.println("Erro!!");
+                }
 
                 // Leitura do Diretor: um único por Filme
                 diretor = null;
                 System.out.print("\n--- Menu de DIRETOR(A) para Filme");
-                System.out.printf("\n -1   Para INCLUIR novo DIRETOR");
-                System.out.printf("\n  0   Para SAIR (para filme sem diretor)");
+                System.out.printf("\n [Enter]   Para INCLUIR novo DIRETOR");
+                System.out.printf("\n  [Sair]   Para SAIR (para filme sem diretor)");
                 System.out.print("\nE lista de escolha DIRETORES já no sistema:");
 
                 boolean continuarDiretor = true;
                 do {
                     int i = 1;
                     int itemDiretorInt = 0;
+                    String chave = "";
                     for (Diretor item : listaDiretores) {
-                        System.out.printf("\n  %d - %s", i++, item.getNome());
+                        System.out.printf("\n  %d - %s", i++, item.getNomeDiretor());
                     }
-                    System.out.print("\nEntre com o número do(a) diretor(a). (0) termina. (-1) inclui novo: ");
-                    itemDiretorInt = leitor.nextInt();
-                    if (itemDiretorInt == 0)
-                        continuarDiretor = false;
-                    else if (itemDiretorInt < -1 || itemDiretorInt > i) {
-                        System.out.println("Número inválido. Entre novamente ou SAIR.");
-                    } else if (itemDiretorInt == -1) {
+                    leitor.nextLine();// Limpa o scanner, scanner após outro tipo dá erro;
+                    System.out.printf("\nEntre com o número do(a) diretor(a). [Sair] termina. [Enter] inclui novo: ");
+                    chave = leitor.nextLine();
+                    if(chave.isEmpty()){
                         System.out.print("\nQual nome do Diretor a incluir? ");
                         String novoNomeDiretor = leitor.nextLine();
-                        novoNomeDiretor = leitor.nextLine();
                         diretor = incluirDiretor(novoNomeDiretor);
-                    } else {
-                        // O array inicia com ZERO e o primeiro da lista é um
-                        diretor = listaDiretores.get(itemDiretorInt-1);
+                    } else if (chave.equalsIgnoreCase("sair")) {
                         continuarDiretor = false;
+                    }else if(chave.matches("\\d+")) {
+                        try {
+                            itemDiretorInt = Integer.parseInt(chave);
+                            itemDiretorInt = Integer.valueOf(chave);
+                            diretor = listaDiretores.get(itemDiretorInt-1);
+                            continuarDiretor = false;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Número inválido. Entre novamente ou SAIR.");
+                        }
                     }
+
                 } while (continuarDiretor);
 
                 // Leitura do Elenco do Filme: entrada de objetos Ator
                 ArrayList<Ator> elenco = new ArrayList<>();
                 Ator ator = null;
                 System.out.print("\n--- Menu de ATORES/ATRIZES para Filme");
-                System.out.printf("\n -1   Para INCLUIR novo ATOR/ATRIZ");
-                System.out.printf("\n  0   Para SAIR da inclusão do elenco");
+                System.out.printf("\n [Enter]   Para INCLUIR novo ATOR/ATRIZ");
+                System.out.printf("\n  [Sair]   Para SAIR da inclusão do elenco");
                 System.out.print("\nE lista de escolha ATORES já no sistema:");
 
                 boolean continuarAtor = true;
                 do {
                     int j = 1;
-                    for (Ator item : listaAtores) {
-                        System.out.printf("\n  %d - %s", j++, item.getNome());
-                    }
                     int itemAtorInt = 0;
-                    System.out.print("\nQual número de ator/atriz. (0) termina. (-1) inclui novo: ");
-                    itemAtorInt = leitor.nextInt();
-                    if (itemAtorInt == 0)
-                        continuarAtor = false;
-                    else if (itemAtorInt < -1 || itemAtorInt > j) {
-                        System.out.println("Número inválido. Entre novamente ou SAIR.");
-                    } else if (itemAtorInt == -1) {
+                    String chave ="";
+                    for (Ator item : listaAtores) {
+                        System.out.printf("\n  %d - %s", j++, item.getNomeAtor());
+                    }
+                    System.out.print("\nQual número de ator/atriz. [Sair] termina. [Enter] inclui novo: ");
+                    chave = leitor.nextLine();
+                    if (chave.isEmpty()) {
                         System.out.print("\nQual nome do Ator/Atriz a incluir? ");
                         String novoNomeAtor = leitor.nextLine();
-                        novoNomeAtor = leitor.nextLine();
                         ator = incluirAtor(novoNomeAtor);
-                    } else
-                        // O array inicia com ZERO e o primeiro da lista é um
-                        elenco.add(listaAtores.get(itemAtorInt - 1));
+                    }else if (chave.equalsIgnoreCase("sair")) {
+                        continuarAtor = false;
+                    } else if(chave.matches("\\d+")){
+                        try {
+                            itemAtorInt = Integer.parseInt(chave);
+                            itemAtorInt = Integer.valueOf(chave);
+                            try {
+                                elenco.add(listaAtores.get(itemAtorInt - 1));
+                            }catch (IndexOutOfBoundsException e){
+                                System.out.println("Número invalido!");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Número inválido. Entre novamente ou SAIR.");
+                        }
+                    }
+
                 } while (continuarAtor);
 
                 // Cria objeto Filme com os dados do usuário
@@ -399,8 +418,7 @@ public class IMDB {
                     for (Ator item: elenco)
                         item.setAtorEmFilme(true);
             }
-            System.out.print("\n\nEntre com o nome do filme ou 'sair' para terminar inclusão filmes: ");
-            filmeNome = leitor.nextLine();
+            System.out.print("\n\nEntre com o nome do filme ou 'sair' para terminar inclusão filmes: \n");
             filmeNome = leitor.nextLine();
         }
     }
@@ -572,15 +590,21 @@ public class IMDB {
 
     static void imprimirListaAtores() {
         System.out.print("\n\n === LISTA ATORES === \n");
+        int num = 0;
         for (Ator ator : listaAtores) {
+            System.out.printf("%d: ",num);
             System.out.println(ator.toString());
+            num++;
         }
     }
 
     static void imprimirListaDiretores() {
         System.out.print("\n\n === LISTA DIRETORES === \n");
+        int num = 0;
         for (Diretor item : listaDiretores) {
+            System.out.printf("%d ",num);
             System.out.println(item.toString());
+            num++;
         }
     }
 
@@ -696,6 +720,69 @@ public class IMDB {
             System.out.printf("Tecle enter para continuar\n");
             chave = leitor.nextLine();
         }while (!chave.isEmpty());
+    }
+    static void subterfugioAtor(ArrayList<Ator> atores, ArrayList<Filme> filmes) {
+        boolean repete = true;
+        String chave = "";
+        int tag = 0;
+        do{
+            System.out.printf("Digite o numero para mais informações ou pule[Enter]\n");
+            chave = leitor.nextLine();
+            if(chave.isEmpty()){
+                repete = false;
+            }else{
+                try {
+                    tag = Integer.parseInt(chave);
+                }catch (NumberFormatException e){
+                    System.out.println("Inserção incorreta");
+                }
+                try {
+                    if (tag <= atores.size()) {
+                        System.out.println("Info:" + atores.get(tag));
+                        Ator ator = atores.get(tag);
+                        System.out.println("Filmes que participou:");
+                        for (Filme filme : filmes) {
+                            if (filme.getElenco().contains(ator))
+                                System.out.println(filme.getNomeFilme());
+                        }
+                    }
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("Número invalido!");
+                }
+            }
+        }while (repete);
+    }
+    static void subterfugioDiretor(ArrayList<Diretor> diretores, ArrayList<Filme> filmes) {
+        boolean repete = true;
+        String chave = "";
+        int tag = 0;
+        do{
+            System.out.printf("Digite o numero para mais informações ou pule[Enter]\n");
+            chave = leitor.nextLine();
+            if(chave.isEmpty()){
+                repete = false;
+            }else{
+                try {
+                    tag = Integer.parseInt(chave);
+                }catch (NumberFormatException e){
+                    System.out.println("Inserção incorreta");
+                }
+                try {
+                    if (tag <= diretores.size()) {
+                        System.out.println("Info:" + diretores.get(tag));
+                        Diretor diretor = diretores.get(tag);
+                        System.out.println("Filmes que participou:");
+                        for (Filme filme : filmes) {
+                            if (filme.getDiretor().getNomeDiretor().equals(diretor.getNomeDiretor())) {
+                                System.out.println(filme.getNomeFilme());
+                            }
+                        }
+                    }
+                }catch (IndexOutOfBoundsException e){
+                    System.out.println("Número invalido!");
+                }
+            }
+        }while (repete);
     }
 
 }
