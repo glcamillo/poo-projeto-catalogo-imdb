@@ -82,28 +82,32 @@ public class IMDB {
         System.out.println("   c) Para teste inicial pode-se iniciar pelas seleções 11, 12 e 13 que farão\n" +
                 "         inicialização de dados estáticos para testes.");
         System.out.println(" -------------------------------------------------------------------------");
-
-        boolean continuar = true;
+        System.out.println("Tecle enter para continuar");
+        leitor.nextLine();
+        boolean continuar = true, chave11 = false, chave12 = false, chave13 = false;
         do {
-            System.out.printf("\n\n ======= Menu IMDB =======\n");
-            System.out.println(" --> Entrada de dados:");
-            System.out.println(" 1. Incluir Ator");
-            System.out.println(" 2. Incluir Diretor");
-            System.out.println(" 3. Incluir Filme");
-            System.out.println(" --> Pesquisas:");
-            System.out.println(" 4. Pesquisar Ator ");
-            System.out.println(" 5. Pesquisar Diretor");
-            System.out.println(" 6. Pesquisar por Filme");
-            System.out.println(" --> Impressão:");
-            System.out.println(" 7. Imprimir Lista Atores");
-            System.out.println(" 8. Imprimir Lista Diretores");
-            System.out.println(" 9. Imprimir Lista Filmes");
-            System.out.println(" 10. Imprimir todas as listas");
-            System.out.println(" --> Inicialização dados e teste classes:");
-            System.out.println(" 11. Classe Ator");
-            System.out.println(" 12. Classe Diretor");
-            System.out.println(" 13. Classe Filme");
-            System.out.println(" (S)AIR: para terminar o programa");
+            System.out.printf("\n=================================== Menu IMDB ===================================\n");
+            System.out.println("\n --> Inclusão           " + " --> Pesquisa              " + " --> Impressão");
+            System.out.println(" 1. Incluir Ator          " + "4. Pesquisar Ator          " + "7. Listar Atores");
+            System.out.println(" 2. Incluir Diretor       " + "5. Pesquisar Diretor       " + "8. Listar Diretores");
+            System.out.println(" 3. Incluir Filme         " + "6. Pesquisar Filme         " + "9. Listar Filmes")  ;
+            System.out.println("                                                    10. Imprimir todas as listas");
+            //            System.out.println(" --> Pesquisas:");
+//            System.out.println(" 4. Pesquisar Ator ");
+//            System.out.println(" 5. Pesquisar Diretor");
+//            System.out.println(" 6. Pesquisar por Filme");
+//            System.out.println(" --> Impressão:");
+//            System.out.println(" 7. Imprimir Lista Atores");
+//            System.out.println(" 8. Imprimir Lista Diretores");
+//            System.out.println(" 9. Imprimir Lista Filmes");
+//            System.out.println(" 10. Imprimir todas as listas");
+            if (!chave11 || !chave12 || !chave13) {
+                System.out.println("\n --> Inicialização dados e teste classes:");
+                System.out.println(" 11. Classe Ator         " + "12. Classe Diretor         " + "13. Classe Filme");
+            }
+                //            System.out.println(" 12. Classe Diretor");
+//            System.out.println(" 13. Classe Filme");
+            System.out.println("\n (S)AIR: para terminar o programa");
             System.out.print(" Qual opção: ");
             String linhaOpcao = leitor.nextLine();
             switch (linhaOpcao.toLowerCase()) {
@@ -117,24 +121,25 @@ public class IMDB {
                     break;
                 case "3":
                     processarEntradaFilme();
-                    continua();
                     break;
                 case "4":
                     pesquisarAtores();
+                    continua();
                     break;
                 case "5":
                     pesquisarDiretores();
+                    continua();
                     break;
                 case "6":
                     pesquisarFilmes();
                     break;
                 case "7":
                     imprimirListaAtores();
-                    subterfugioAtor(listaAtores,listaFilmes);
+                    obterMaisInfosAtor(listaAtores,listaFilmes);
                     break;
                 case "8":
                     imprimirListaDiretores();
-                    subterfugioDiretor(listaDiretores,listaFilmes);
+                    obterMaisInfosDiretor(listaDiretores,listaFilmes);
                     break;
                 case "9":
                     imprimirListaFilmes();
@@ -142,20 +147,25 @@ public class IMDB {
                     break;
                 case "10":
                     imprimirListaAtores();
+                    continua();
                     imprimirListaDiretores();
+                    continua();
                     imprimirListaFilmes();
                     continua();
                     break;
                 case "11":
                     testarAtor();
+                    chave11 = true;
                     continua();
                     break;
                 case "12":
                     testarDiretor();
+                    chave12 = true;
                     continua();
                     break;
                 case "13":
                     testarFilme();
+                    chave13 = true;
                     continua();
                     break;
                 case "s":
@@ -315,7 +325,7 @@ public class IMDB {
                 // Leitura da Data de Lançamento
                 LocalDate filmeDataLancamento = null;
                 try {
-                    filmeDataLancamento = lerData("data de lançamento");
+                    filmeDataLancamento = lerData("lançamento");
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
@@ -533,7 +543,7 @@ public class IMDB {
         boolean encontrou = false;
         boolean repete = true;
         do {
-            System.out.print("\nQual nome de Diretor você deseja buscar?");
+            System.out.print("\nQual nome de Diretor você deseja buscar? ");
             chave = leitor.nextLine();
             System.out.println("Nome buscado: " + chave);
             for (Diretor diretor : listaDiretores) {
@@ -721,7 +731,7 @@ public class IMDB {
             chave = leitor.nextLine();
         }while (!chave.isEmpty());
     }
-    static void subterfugioAtor(ArrayList<Ator> atores, ArrayList<Filme> filmes) {
+    static void obterMaisInfosAtor(ArrayList<Ator> atores, ArrayList<Filme> filmes) {
         boolean repete = true;
         String chave = "";
         int tag = 0;
@@ -752,7 +762,7 @@ public class IMDB {
             }
         }while (repete);
     }
-    static void subterfugioDiretor(ArrayList<Diretor> diretores, ArrayList<Filme> filmes) {
+    static void obterMaisInfosDiretor(ArrayList<Diretor> diretores, ArrayList<Filme> filmes) {
         boolean repete = true;
         String chave = "";
         int tag = 0;
